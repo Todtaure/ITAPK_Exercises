@@ -2,106 +2,131 @@
 #include <iostream>
 
 template<typename T>
-class SharedPtr
+class Holder
 {
 public:
-	SharedPtr(T* t) : _body(new T(*t))
-	{
-		std::size_t* init = new std::size_t(1);
-		_count = init;
-		_hasHelper = new bool(false);
+	virtual ~Holder() { }
+	virtual void operator()(T* t) = 0;
+};
 
+template<typename T, typename D>
+class HolderImp : public Holder<T>
+{
+public:
+	HolderImp(D d) : d_(d)
+	{
 	}
 
-	SharedPtr(const SharedPtr& ptr)
+	~HolderImp() {}
+	void operator()(T* t)
 	{
-		_body = ptr._body;
-		_count = ptr._count;
-		_helper = ptr._helper;
-		_hasHelper = ptr._hasHelper;
-
-		(*_count)++;
-	}
-
-	template<typename T, typename D>
-	SharedPtr(T* t, D helper)
-	{
-		std::size_t* init = new std::size_t(1);
-		_count = init;
-		_helper = &helper;
-		_hasHelper = new bool(true);
-	}
-
-	~SharedPtr()
-	{
-		std::cout << "Destruction SharedPtr" << *_body << endl;
-			
-		if (--(*_count) <= 0)
-		{
-			if (_hasHelper)
-			{
-				*_helper(_body);
-			}
-			else{
-				delete _body;
-			}
-			delete _count;
-		}
-	}
-
-	SharedPtr& operator=(const SharedPtr& ptr)
-	{
-		if (this != &ptr)
-		{
-			if (this->--(*_count) <= 0)
-			{
-				delete this->_body;
-			}
-
-			this->_body = ptr->_body;
-			this->_count = ptr->_count;
-			(*_count)++;
-		}
-	}
-
-	T& operator*()
-	{
-		return *_body;
-	}
-
-	T* operator->()
-	{
-		return _body;
-	}
-
-	template<typename T> 
-	friend bool operator==(const SharedPtr<T>& lhPtr, const SharedPtr<T>& rhPtr);
-
-	std::size_t count() const
-	{
-		return *_count;
+		std::cout << "HolderImp Functor called..." << std::endl;
+		d_(t);
 	}
 
 private:
-	T* _body;
-	std::size_t* _count;
-	void* _helper;
-	bool* _hasHelper;
+	D d_;
 };
 
-template<typename T>
-bool operator==(const SharedPtr<T>& lhPtr, const SharedPtr<T>& rhPtr)
+namespace CustomPtr
 {
-	return lhPtr._body == rhPtr._body;
-}
 
-template<typename T>
-class HelperFunctor
-{
-public:
-	void operator()()
+	template<typename T>
+	class SharedPtr
 	{
+	public:
+		SharedPtr(T* t) : body(new T(*t)), counter(new std::size_t(1))
+		{
+		}
 
+		SharedPtr(const SharedPtr& ptr)
+		{
+			body = ptr.body;
+			counter = ptr.counter;
+			helper = ptr.helper;
+
+			(*counter)++;
+		}
+
+		template<typename D>
+		SharedPtr(T* t, D d)
+			:body(new T(*t)), counter(new std::size_t(1)), helper(new HolderImp<T, D>(d))
+		{
+		}
+
+		~SharedPtr()
+		{
+			std::cout << "Destruction SharedPtr" << *body << std::endl;
+
+			if (--(*counter) <= 0)
+			{
+				if (helper)
+				{
+					(*helper)(body);
+				}
+				else
+				{
+					delete body;
+				}
+				delete helper;
+				delete counter;
+			}
+		}
+
+		SharedPtr& operator=(const SharedPtr& ptr)
+		{
+			if (this != &ptr)
+			{
+				if (--(*(this->counter)) <= 0)
+				{
+					delete this->body;
+				}
+
+				this->body = ptr->body;
+				this->counter = ptr->counter;
+				(*counter)++;
+			}
+			return *this;
+		}
+
+		T& operator*() const
+		{
+			return *body;
+		}
+
+		T* operator->() const
+		{
+			return body;
+		}
+
+		template<typename T>
+		friend bool operator==(const SharedPtr<T>& lhPtr, const SharedPtr<T>& rhPtr);
+
+		std::size_t count() const
+		{
+			return *counter;
+		}
+
+	private:
+		T* body;
+		std::size_t* counter;
+		Holder<T>* helper;
+	};
+
+	template<typename T>
+	bool operator==(const SharedPtr<T>& lhPtr, const SharedPtr<T>& rhPtr)
+	{
+		return lhPtr.body == rhPtr.body;
 	}
-};
 
+	template<typename T>
+	struct HelperFunctor
+	{
+		void operator()(T* ptrToDelete)
+		{
+			std::cout << "HelperFunctor deleting ptr..." << std::endl;
+			delete ptrToDelete;
+		}
+	};
+
+}

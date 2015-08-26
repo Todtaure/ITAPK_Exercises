@@ -1,31 +1,35 @@
 #include "SharedPtr.h"
-#include <string>
 
 using namespace std;
-
 
 int main()
 {
 	cout << "Starting ...." << endl;
 	int number = 42;
 	int someInt = 10;
+	{
+		CustomPtr::SharedPtr<int> myPtr(&number);
+		CustomPtr::SharedPtr<int> someIntPtr(&someInt);
+		{		
+			CustomPtr::SharedPtr<int> secPtr(myPtr);
 
-	SharedPtr<int> myPtr(&number);
-	SharedPtr<int> secPtr(myPtr);
-	SharedPtr<int> someIntPtr(&someInt);
+			cout << "First Pointer : " << *myPtr << endl;
+			cout << "Second Pointer: " << *secPtr << endl;
 
-	cout << "First Pointer : " << *myPtr << endl;
-	cout << "Second Pointer: " << *secPtr << endl;
+			cout << "Pointers the same? " << (myPtr == secPtr ? "Yes" : "No") << endl;
+			cout << "Pointers the same? " << (myPtr == someIntPtr ? "Yes" : "No") << endl;
 
-	cout << "Pointers the same? " << (myPtr == secPtr ? "Yes" : "No") << endl;
-	cout << "Pointers the same? " << (myPtr == someIntPtr ? "Yes" : "No") << endl;
-	
-	cout << "Count is: " << secPtr.count() << " for " << *secPtr << endl;
-	cout << "Count is: " << someIntPtr.count() << " for " << *someIntPtr << endl;
-		
-	cout << "First Pointer: " << *myPtr << endl;
-	myPtr.~SharedPtr();
-	cout << "Count is: " << secPtr.count() << " for " << *secPtr << endl;
+			cout << "Count is: " << secPtr.count() << " for " << *secPtr << endl;
+			cout << "Count is: " << someIntPtr.count() << " for " << *someIntPtr << endl;
+		}
+		cout << "First Pointer: " << *myPtr << endl;
+		cout << "Count is: " << myPtr.count() << " for " << *myPtr << endl;
+	}
+
+	int someNumber = 50;
+	CustomPtr::SharedPtr<int> customDeletePtr(&someNumber, CustomPtr::HelperFunctor<int>());
+
+	cout << "Ptr with custom delete: " << *customDeletePtr << endl;
 
 	getchar();
 	return 0;
