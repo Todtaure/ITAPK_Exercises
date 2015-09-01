@@ -4,7 +4,7 @@ template<typename T, size_t SIZE = 10>
 class MyArray
 {
 public:
-	explicit MyArray()
+	MyArray()
 	{
 		arr_start_ = &arr_[0];
 		arr_end_ = &arr_[SIZE];
@@ -60,6 +60,8 @@ public:
 		return *this;
 	}
 
+	typedef T value_type;
+
 	size_t size() const
 	{
 		return SIZE;
@@ -105,11 +107,13 @@ T** myFind(T** begin, T** end, const G& val)
 	return end;
 }
 
+//-------------------------------------------------------------------
+
 template<typename T, size_t SIZE>
 class MyArray<T*, SIZE>
 {
 public:
-	explicit MyArray()
+	MyArray()
 	{
 		arr_start_ = &arr_[0];
 		arr_end_ = &arr_[SIZE];
@@ -156,7 +160,7 @@ public:
 
 	T* operator[](int i)
 	{
-		return (arr_[i]);
+		return arr_[i];
 	}
 
 	template<typename D>
@@ -174,6 +178,8 @@ public:
 	{
 		return SIZE;
 	}
+
+	typedef T value_type;
 
 private:
 	T* arr_[SIZE];

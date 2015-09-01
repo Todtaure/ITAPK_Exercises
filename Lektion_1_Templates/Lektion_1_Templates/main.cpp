@@ -76,9 +76,13 @@ int test_main(int argc, char* argv[])
 
 	//Exercise 3
 	std::vector<int> vec = { 1,1,1,1,1,1 };
-
+	MyArray<int*, SIZE> arr_3;
+	
+	int* a = new int(1), *b = new int(2);
+	
 	BOOST_CHECK(myAccumulation(vec) == 6);
 	BOOST_CHECK(myAccumulation(arr) == 10);
+	//BOOST_CHECK(myAccumulation(arr_3) == 10);
 
 	std::cout << "Test cases completed." << std::endl;
 
