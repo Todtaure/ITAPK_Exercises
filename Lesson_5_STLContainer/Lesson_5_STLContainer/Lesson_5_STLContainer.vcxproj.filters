@@ -15,22 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Transformation\LogFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Transformation\ProgramTransformation.cpp">
+    <ClCompile Include="ProductSystem\algo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExceptionClasses.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transformation\LogFile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Exceptions_Ex3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <None Include="product.db" />
   </ItemGroup>
 </Project>

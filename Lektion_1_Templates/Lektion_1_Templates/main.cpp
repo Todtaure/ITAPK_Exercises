@@ -3,6 +3,19 @@
 #include <boost/test/minimal.hpp>
 #include <vector>
 
+
+struct Deref
+{
+	template<typename T>
+	T operator()(const T* t)
+	{
+		if(t != nullptr)
+			return *t;
+		else 
+			return T();
+	}
+};
+
 int test_main(int argc, char* argv[])
 {
 	std::cout << "Beginning test cases." << std::endl;
@@ -82,7 +95,7 @@ int test_main(int argc, char* argv[])
 	
 	BOOST_CHECK(myAccumulation(vec) == 6);
 	BOOST_CHECK(myAccumulation(arr) == 10);
-	//BOOST_CHECK(myAccumulation(arr_3) == 10);
+	BOOST_CHECK(myAccumulation(arr_3, Deref()) == 0);
 
 	std::cout << "Test cases completed." << std::endl;
 

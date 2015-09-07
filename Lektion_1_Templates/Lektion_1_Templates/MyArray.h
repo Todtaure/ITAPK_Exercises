@@ -199,3 +199,17 @@ typename U::value_type myAccumulation(const U& u)
 
 	return m;
 }
+
+
+template<typename U, typename P>
+typename U::value_type myAccumulation(const U& u, P p)
+{
+	typename U::value_type m = typename U::value_type();
+
+	for (auto first = u.begin(); first != u.end(); ++first)
+	{
+		m += p(*first);
+	}
+
+	return m;
+}
