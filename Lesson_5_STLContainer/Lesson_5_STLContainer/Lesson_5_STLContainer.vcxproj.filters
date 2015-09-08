@@ -22,4 +22,9 @@
   <ItemGroup>
     <None Include="product.db" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

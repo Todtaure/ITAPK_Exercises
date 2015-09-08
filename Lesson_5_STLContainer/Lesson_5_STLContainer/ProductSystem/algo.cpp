@@ -13,8 +13,10 @@
 #include <vector>
 #include <string>
 
+#include <boost/test/minimal.hpp>
 
 #define PRODUCT_DB_FILE		"product.db"
+#include "../MyArray.h"
 
 class Product
 {
@@ -39,6 +41,11 @@ public:
   void setPrice(float newPrice)
   {
     price_ = newPrice;
+  }
+
+  void setDiscount(float discount)
+  {
+	  price_ *= (1 - (discount / 100));
   }
   
   unsigned int sold() const
@@ -118,7 +125,7 @@ void printAll(const ProductList& pl)
 */
 void addItem(ProductList& pl)
 {
-	Product newProd("Braendt", 5000.55, 1);
+	Product newProd("Braendt", 5000.55f, 1);
 	pl.push_back(newProd);
 }
 
@@ -159,16 +166,53 @@ void printPoorlySellingProducts(const ProductList& pl)
 /**
  * Set a discount on all products - Using for_each()
  */
+
+struct DiscountForEach
+{
+	DiscountForEach(float discount) : discount_(discount)
+	{
+	}
+
+	void operator () (Product &p)
+	{
+		auto perc = (1 - (discount_ / 100));
+		p.setPrice(p.price() * perc);
+	}
+
+private:
+	float discount_;
+};
+
 void addDiscountUsingForEach(ProductList& pl)
 {
+	std::for_each(pl.begin(), pl.end(), DiscountForEach(20));
 }
 
 
 /**
  * Set a discount on all products - Using transform()
  */
+struct DiscountTrans
+{
+	DiscountTrans(float discount) : discount_(discount)
+	{
+	}
+
+	Product operator ()(Product p)
+	{
+		auto perc = (1 - (discount_ / 100));
+		p.setPrice(p.price() * perc);
+		return p;
+	}
+
+private:
+	float discount_;
+};
 void addDiscountUsingTransform(ProductList& pl)
 {
+	std::cout << "##################################################" << std::endl;
+	std::ostream_iterator<Product> oit(std::cout, "\n---\n");
+	std::transform(pl.begin(), pl.end(), oit, DiscountTrans(50));
 }
 
 
@@ -177,15 +221,58 @@ void addDiscountUsingTransform(ProductList& pl)
  */
 void calcTotalSoldProducts(ProductList& pl)
 {
+	std::vector<unsigned int> tmpSold = {};	
+	std::transform(pl.begin(), pl.end(), std::back_inserter(tmpSold), std::mem_fun_ref<unsigned int, Product>(&Product::sold));
+	
+	std::cout << "##################################################" << std::endl;
+	std::cout << "Products sold total: " << std::accumulate(tmpSold.begin(), tmpSold.end(), 0) << std::endl;
+	std::cout << "##################################################" << std::endl;
+}
+//Transform is a little harder to understand and read than eg. for_each, especially when using the mem_fun_ref method.
+
+/**
+Apply Product discount using lambda function.
+*/
+void setProductDiscountLambda(ProductList &pl)
+{
+	std::for_each(pl.begin(), pl.end(), 
+		[](Product &p)
+	{
+		p.setDiscount(25);
+	});
+
+	std::cout << "##################################################" << std::endl;
+	std::cout << "Product discount applied." << std::endl;
+	std::cout << "##################################################" << std::endl;
 }
 
 
 /**
  * Setting discount using bind2nd - OPTIONAL
  */
+void testMyArrayIterator()
+{
+	MyArray<int> arr;
+	arr.fill(3);
 
+	BOOST_CHECK(std::accumulate(arr.begin(), arr.end(), 0) == 30);
 
-int main()
+	std::for_each(arr.begin(), arr.end(), [](int &i) {i *= 2; });
+
+	BOOST_CHECK(arr[0] == 6);
+	BOOST_CHECK(std::accumulate(arr.begin(), arr.end(), 0) == 60);
+
+	std::ostream_iterator<int> oit(std::cout, ", ");
+	std::cout << "MyArray content: ";
+	std::copy(arr.begin(), arr.end(), oit);
+	std::cout << std::endl;
+}
+
+/**
+Test methods for Custom iterator for MyArray
+*/
+
+int test_main(int argc, char* argv[])
 {
   bool        running = true;
   ProductList pl;
@@ -204,7 +291,8 @@ int main()
     std::cout << "'6' Set a discount on all products (using for_each() )" << std::endl;
     std::cout << "'7' Set a discount on all products (using transform() )" << std::endl;
     std::cout << "'8' Calculate the total amount of sold products" << std::endl;
-    
+	std::cout << "'9' Set a discount on all products (using lambda )" << std::endl;
+
     
     std::cout << "'q' Quit" << std::endl;
     std::cout << "Your choice: ";
@@ -243,12 +331,20 @@ int main()
       case '8':
         calcTotalSoldProducts(pl);
         break;
+
+	  case '9':
+		setProductDiscountLambda(pl);
+		break;
+
+	  case 'x':
+		  testMyArrayIterator();
+		  break;
         
       case 'q':
       case 'Q':
         running = false;
     }
-    
-    
   }
+
+  return 0;
 }
