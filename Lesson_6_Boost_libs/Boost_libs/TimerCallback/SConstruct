@@ -1,0 +1,5 @@
+env = Environment()
+env.Append(CPPPATH=['/opt/local/include', '/usr/include'])
+env['CXXFLAGS'] = '-std=c++11'
+
+env.Program('Bindfunction', ["Bindfunction.cpp", "Timer.cpp", "Events.cpp"])
