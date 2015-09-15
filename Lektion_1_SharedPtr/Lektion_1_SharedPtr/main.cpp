@@ -24,6 +24,7 @@ int main()
 		}
 		cout << "First Pointer: " << *myPtr << endl;
 		cout << "Count is: " << myPtr.count() << " for " << *myPtr << endl;
+		
 	}
 
 	int someNumber = 50;

@@ -18,7 +18,7 @@ public:
 	}
 
 	~HolderImp() {}
-	void operator()(T* t)
+	void operator()(T* t) override
 	{
 		std::cout << "HolderImp Functor called..." << std::endl;
 		d_(t);
