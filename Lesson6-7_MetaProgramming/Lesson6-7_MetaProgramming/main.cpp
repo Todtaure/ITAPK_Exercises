@@ -12,6 +12,11 @@ int test_main(int argc, char* argv[])
 	/*Exercise 3.1*/
 	mixedTypes::Rest::Rest::First doubleValue = 2.0;
 	myTypes::First integerValue = 2;
+	/*
+	Hvis noget kun skal køre med bestemte tyåer kan static assert anvendes til at set om argumentet
+	er i den Typelist som specificerer parametre.
+	Ifm. Boost test kan en typelist bruges til at automatisere tests ift. oprettelse af typer.
+	*/
 
 	/*Exercise3.2.1*/
 	/* Must be true */
@@ -25,7 +30,22 @@ int test_main(int argc, char* argv[])
 	std::cout << "Contains <TL , int >:: value=" << Contains<TL, int>::value << std::endl;
 
 	/* Must be false */
-	std::cout << "Contains <TL , std::string >:: value=" << Contains<TL, std::string>::value << std::endl;
+	std::cout << "Contains <TL , std::string >::value=" << Contains<TL, std::string>::value << std::endl;
+
+	/*Exercise 3.2.3*/
+	/* Must be true */
+	std::cout << "IsSame <typename AtIndex <TL , 2>::type , int >::value " << 
+		IsSame<typename AtIndex<TL_ex323, 2>::type, int>::value << std::endl;
+
+	/* Must be false */
+	std::cout << "IsSame <typename AtIndex <TL , 2>::type , char >::value " << 
+		IsSame<typename AtIndex<TL_ex323, 2>::type, char>::value << std::endl;
+
+
+	/*Exercise 3.2.4*/
+	std::cout << "Type in TypeList: ";
+	PrintIT<TL_ex323>();
+
 
 
 	getchar();

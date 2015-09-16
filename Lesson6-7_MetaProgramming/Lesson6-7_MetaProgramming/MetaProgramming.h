@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 
 /*Exercsise 2*/
 
@@ -57,8 +56,15 @@ Exercise 3.2.1
 template<typename A, typename B>
 struct IsSame
 {
-	enum { value = std::is_same<A, B>::value };
+	enum { value = false }; //std::is_same<A, B>::value
 };
+
+template<typename A>
+struct IsSame<A ,A>
+{
+	enum{ value = true};
+};
+
 
 /*
 Exercise 3.2.2
@@ -78,4 +84,44 @@ template<typename Comp>
 struct Contains<NullType, Comp>
 {
 	enum{value = false};
+};
+
+/*
+Exercise 3.2.3
+*/
+
+typedef TypeList_3(long, char, int) TL_ex323;
+
+template<typename TL, int Index>
+struct AtIndex
+{
+	typedef typename AtIndex< typename TL::Rest, Index - 1>::type type;
+};
+
+template<typename TL>
+struct AtIndex<TL, 0>
+{
+	 typedef typename TL::First type;
+};
+
+/*
+Exercise 3.2.4
+*/
+
+template<typename TL>
+struct PrintIT
+{
+	PrintIT()
+	{
+		std::cout << typeid(typename TL::First).name() << ", ";
+		PrintIT<typename TL::Rest>();
+	}
+};
+
+template<>
+struct PrintIT<NullType>
+{
+	PrintIT()
+	{
+	}
 };
