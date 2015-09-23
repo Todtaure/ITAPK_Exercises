@@ -46,7 +46,15 @@ int test_main(int argc, char* argv[])
 	std::cout << "Type in TypeList: ";
 	PrintIT<TL_ex323>();
 
+	/*Exercise 3.2.5*/
+	/* Must be false */
+	std::cout << "Contains <typename Remove <TL , int >::type , int >:: value" <<
+		Contains <typename Remove<TL_ex325, int >::type, int >::value << std::endl;
 
+	/* Must be true , semi test to verify that the typelist still contains a
+	char */
+	std::cout << "Contains <typename Remove <TL , char >::type , int >:: value" <<
+		Contains <typename Remove<TL_ex325, char >::type, int >::value << std::endl;
 
 	getchar();
 	return NO_ERROR;

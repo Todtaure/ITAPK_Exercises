@@ -125,3 +125,88 @@ struct PrintIT<NullType>
 	{
 	}
 };
+
+/*
+Exercise 3.2.5
+*/
+
+typedef TypeList_3(long, char, int) TL_ex325;
+
+//Solution from Søren Hansen
+
+//Method 1
+template<typename TL, typename T> struct Remove;
+
+template<typename First, typename Rest, typename T>
+struct Remove<TypeList<First, Rest>, T>
+{
+	typedef TypeList<First, typename Remove<Rest, T>::type > type;
+};
+
+template<typename First, typename Rest>
+struct Remove<TypeList<First, Rest>, First>
+{
+	typedef TypeList<typename Remove<Rest, First>::type::First, typename Remove<Rest, First>::type::Rest > type;
+};
+
+template<typename First>
+struct Remove<TypeList<First, NullType>, First>
+{
+	typedef NullType type;
+};
+
+
+template<typename T>
+struct Remove<NullType, T>
+{
+	typedef NullType type;
+};
+
+//Method 2
+
+template<typename TL>
+struct TLGetFirst
+{
+	typedef typename TL::First First;
+};
+
+template<>
+struct TLGetFirst<NullType>
+{
+	typedef NullType First;
+};
+
+
+template<typename TL>
+struct TLGetRest
+{
+	typedef typename TL::Rest Rest;
+};
+
+template<>
+struct TLGetRest<NullType>
+{
+	typedef NullType Rest;
+};
+
+
+
+template<typename TL, typename T>
+struct Erase
+{
+private:
+	static const bool found = IsSame<typename TL::First, T>::value;
+	static const bool lastElem = IsSame<typename TL::Rest, NullType>::value;
+	typedef typename IfThenElse<typename TLGetFirst<typename TL::Rest>::First, typename TL::First, found>::Type First;
+	typedef typename IfThenElse<typename TLGetRest<typename TL::Rest>::Rest, typename TL::Rest, found>::Type Rest;
+public:
+	typedef typename IfThenElse<NullType, TypeList<First, typename Erase<Rest, T>::Type >, found && lastElem>::Type Type;
+};
+
+
+template<typename T>
+struct Erase<NullType, T>
+{
+	typedef NullType Type;
+};
+
