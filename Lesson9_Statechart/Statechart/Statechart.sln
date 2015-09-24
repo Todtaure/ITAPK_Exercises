@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultipleState", "Statechart\Statechart.vcxproj", "{6A19E9C2-D85A-4181-A618-F6F23B5BB182}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleState", "SimpleState\SimpleState.vcxproj", "{C6C6AABE-A313-40E5-858A-775C1093D4FD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GuardedTransition", "GuardedTransition\GuardedTransition.vcxproj", "{28F78C18-866E-451A-9EEA-242B2CC6AECA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InstateStateInformation", "InstateStateInformation\InstateStateInformation.vcxproj", "{EEA8260B-3672-4612-A7D8-BAE1BB9E364B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "History", "History\History.vcxproj", "{D49AEB4E-802B-4BF7-A6C9-983C3EE0910A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A19E9C2-D85A-4181-A618-F6F23B5BB182}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6A19E9C2-D85A-4181-A618-F6F23B5BB182}.Debug|Win32.Build.0 = Debug|Win32
+		{6A19E9C2-D85A-4181-A618-F6F23B5BB182}.Release|Win32.ActiveCfg = Release|Win32
+		{6A19E9C2-D85A-4181-A618-F6F23B5BB182}.Release|Win32.Build.0 = Release|Win32
+		{C6C6AABE-A313-40E5-858A-775C1093D4FD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C6C6AABE-A313-40E5-858A-775C1093D4FD}.Debug|Win32.Build.0 = Debug|Win32
+		{C6C6AABE-A313-40E5-858A-775C1093D4FD}.Release|Win32.ActiveCfg = Release|Win32
+		{C6C6AABE-A313-40E5-858A-775C1093D4FD}.Release|Win32.Build.0 = Release|Win32
+		{28F78C18-866E-451A-9EEA-242B2CC6AECA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{28F78C18-866E-451A-9EEA-242B2CC6AECA}.Debug|Win32.Build.0 = Debug|Win32
+		{28F78C18-866E-451A-9EEA-242B2CC6AECA}.Release|Win32.ActiveCfg = Release|Win32
+		{28F78C18-866E-451A-9EEA-242B2CC6AECA}.Release|Win32.Build.0 = Release|Win32
+		{EEA8260B-3672-4612-A7D8-BAE1BB9E364B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EEA8260B-3672-4612-A7D8-BAE1BB9E364B}.Debug|Win32.Build.0 = Debug|Win32
+		{EEA8260B-3672-4612-A7D8-BAE1BB9E364B}.Release|Win32.ActiveCfg = Release|Win32
+		{EEA8260B-3672-4612-A7D8-BAE1BB9E364B}.Release|Win32.Build.0 = Release|Win32
+		{D49AEB4E-802B-4BF7-A6C9-983C3EE0910A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D49AEB4E-802B-4BF7-A6C9-983C3EE0910A}.Debug|Win32.Build.0 = Debug|Win32
+		{D49AEB4E-802B-4BF7-A6C9-983C3EE0910A}.Release|Win32.ActiveCfg = Release|Win32
+		{D49AEB4E-802B-4BF7-A6C9-983C3EE0910A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
