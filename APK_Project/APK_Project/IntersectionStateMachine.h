@@ -7,6 +7,18 @@
 namespace sc = boost::statechart;
 
 /*
+State translations:
+LightState_1	NS-Green, EW-Red
+LightState_2	NS-Yellow, EW-Red
+InitialRR		NS-Red, EW-Red
+LightState_4	NS-RedYellow, EW-Red
+LightState_5	NS-Red, EW-Green
+LightState_6	NS-Red, EW-Yellow
+LightState_7	NS-Red, EW-RedYellow
+
+*/
+
+/*
 Events
 */
 
@@ -21,7 +33,17 @@ struct YellowFlashing;
 
 struct Machine : sc::state_machine<Machine, Operational>
 {
-	
+	//Entry
+	Machine()
+	{
+
+	}
+
+	//Exit
+	~Machine()
+	{
+		
+	}
 };
 
 
@@ -34,12 +56,32 @@ struct Emergency;
 
 struct Operational : sc::simple_state<Operational, Machine, NormalExecution>
 {
-	
+	//Entry
+	Operational()
+	{
+		
+	}
+
+	//Exit
+	~Operational()
+	{
+
+	}
 };
 
 struct YellowFlashing : sc::simple_state<YellowFlashing, Machine>
 {
-	
+	//Entry
+	YellowFlashing()
+	{
+
+	}
+
+	//Exit
+	~YellowFlashing()
+	{
+
+	}
 };
 
 
@@ -51,62 +93,144 @@ struct InitialRR_Emergency;
 
 struct NormalExecution : sc::simple_state<NormalExecution, Operational, InitialRR>
 {
-	
+	//Entry
+	NormalExecution()
+	{
+
+	}
+
+	//Exit
+	~NormalExecution()
+	{
+
+	}
 };
 
 struct Emergency : sc::simple_state<Emergency, Operational, InitialRR_Emergency>
 {
-	
+	//Entry
+	Emergency()
+	{
+
+	}
+
+	//Exit
+	~Emergency()
+	{
+
+	}
 };
 
 /*
 Tier-III states
 */
 
-struct NSG : sc::simple_state<NSG, NormalExecution>
+struct InitialRR : sc::simple_state<InitialRR, boost::mpl::list<NormalExecution, Emergency>>
 {
-	
+	//Entry
+	InitialRR()
+	{
+		
+	}
+
+	//Exit
+	~InitialRR()
+	{
+		
+	}
+
+	//Events
+
+
 };
 
-struct NSY : sc::simple_state<NSY, NormalExecution>
+struct LightState_1 : sc::simple_state<LightState_1, boost::mpl::list<NormalExecution, Emergency> >
 {
-	
+	//Entry
+	LightState_1()
+	{
+
+	}
+
+	//Exit
+	~LightState_1()
+	{
+
+	}
 };
 
-struct NSR : sc::simple_state<NSR, NormalExecution>
+struct LightState_2 : sc::simple_state<LightState_2, boost::mpl::list<NormalExecution, Emergency>>
 {
-	
+	//Entry
+	LightState_2()
+	{
+
+	}
+
+	//Exit
+	~LightState_2()
+	{
+
+	}
 };
 
-struct NSRY : sc::simple_state<NSRY, NormalExecution>
+struct LightState_4 : sc::simple_state<LightState_4, boost::mpl::list<NormalExecution, Emergency>>
 {
-	
+	//Entry
+	LightState_4()
+	{
+
+	}
+
+	//Exit
+	~LightState_4()
+	{
+
+	}
 };
 
-struct EWG : sc::simple_state<EWG, NormalExecution>
+struct LightState_5 : sc::simple_state<LightState_5, boost::mpl::list<NormalExecution, Emergency>>
 {
-	
+	//Entry
+	LightState_5()
+	{
+
+	}
+
+	//Exit
+	~LightState_5()
+	{
+
+	}
 };
 
-struct EWY : sc::simple_state<EWY, NormalExecution>
+struct LightState_6 : sc::simple_state<LightState_6, boost::mpl::list<NormalExecution, Emergency>>
 {
-	
+	//Entry
+	LightState_6()
+	{
+
+	}
+
+	//Exit
+	~LightState_6()
+	{
+
+	}
 };
 
-struct EWR : sc::simple_state<EWR, NormalExecution>
+struct LightState_7 : sc::simple_state<LightState_7, boost::mpl::list<NormalExecution, Emergency>>
 {
-	
-};
+	//Entry
+	LightState_7()
+	{
 
-struct EWRY : sc::simple_state<EWRY, NormalExecution>
-{
-	
-};
+	}
 
-struct InitialRR : sc::simple_state<InitialRR, NormalExecution>
-{
-	
-};
+	//Exit
+	~LightState_7()
+	{
 
-//Emergency states
+	}
+};
 
