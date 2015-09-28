@@ -18,5 +18,8 @@
     <ClCompile Include="..\..\..\..\ITTAPK\Lecture 9 - BoostStatechart\Exercises\Radio\History\radio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="radio2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
