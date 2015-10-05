@@ -27,7 +27,6 @@ LightState_6	NS-Red, EW-RedYellow
 #define TIMER std::chrono::seconds(1)
 #define EM_TIMER std::chrono::seconds(4)
 
-
 /*
 Events
 */
