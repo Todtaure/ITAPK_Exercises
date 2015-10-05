@@ -6,6 +6,7 @@
 #include <boost/ref.hpp>
 #include <boost/bind/bind.hpp>
 #include "Log.h"
+#include "VehicleDetector.h"
 
 class InterruptException : public std::runtime_error
 {
@@ -17,6 +18,7 @@ public:
 	{
 		return runtime_error::what();
 	}
+
 
 };
 
@@ -75,21 +77,22 @@ int main()
 	sigTraffic.connect(Log<LogTraffic>());
 
 
-	Machine *m = new Machine();
-
-	m->initiate();
-
-	std::thread work1(run_normal_execution, m);
-
-	std::this_thread::sleep_for(std::chrono::seconds(3));
-
-	toggle_interrupt(m);
-	std::cout << "Interrupt activated!" << std::endl;
-
-	work1.join();
-
-	m->process_event(EvEVApproaching());
-
+//	Machine *m = new Machine();
+//
+//	m->initiate();
+//
+//	std::thread work1(run_normal_execution, m);
+//
+//	std::this_thread::sleep_for(std::chrono::seconds(3));
+//
+//	toggle_interrupt(m);
+//	std::cout << "Interrupt activated!" << std::endl;
+//
+//	work1.join();
+//
+//	m->process_event(EvEVApproaching());
+//
+	/*
 
 	TrafficInfo test_traffic_info;
 	sigTraffic.connect(boost::bind(&TrafficInfo::TrafficMilestone, boost::ref(test_traffic_info), _1));
@@ -102,7 +105,7 @@ int main()
 	LogError testError;
 	testError.message = "Crash and burn";
 	sigError(testError);
-
+	
 	LogTraffic testTraffic;
 	testTraffic.direction = LogTraffic::NORTH;
 	testTraffic.numberOfEmergencies = 1;
@@ -110,12 +113,15 @@ int main()
 	sigTraffic(testTraffic);
 
 	testTraffic.numberOfVehicles = 242;
-	sigTraffic(testTraffic);
+	sigTraffic(testTraffic);*/
 
-	
+
+
+	std::thread VehicleDetectorThread(VehicleDetection);
+	VehicleDetectorThread.join();
 	
 	getchar();
 
-	delete m;
+	//delete m;
 	return 0;
 }

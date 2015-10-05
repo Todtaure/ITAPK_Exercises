@@ -1,8 +1,9 @@
+#pragma once
 #include <iostream>
 #include <boost/variant.hpp>
 #include <boost/signals2/signal.hpp>
-#include <boost/type_traits/is_base_of.hpp>
-
+#include <fstream>
+#include <sstream>
 
 struct LogInfo
 {
@@ -14,11 +15,10 @@ struct LogError
 	std::string message;
 };
 
-
 static const char* direction_names[] = { "NORTH", "SOUTH", "WEST", "EAST" };
 
 struct LogTraffic
-{	
+{
 	enum direction
 	{
 		NORTH,
@@ -32,6 +32,29 @@ struct LogTraffic
 	int numberOfEmergencies;
 };
 
+inline void WriteToFile(std::string path, std::vector<std::string> vec) // std::stringstream &ss
+{
+	std::mutex fileLock;
+	try
+	{
+		fileLock.lock();
+		std::fstream fs(path, std::fstream::out | std::fstream::app);
+
+		std::ostream_iterator<std::string> output(fs);
+		std::copy(vec.begin(), vec.end(), output);
+		
+		//std::ostream_iterator<std::string> output(fs);
+		//fs << ss.rdbuf();
+
+		fs.close();
+		fileLock.unlock();
+	}
+	catch (...)
+	{
+		std::cout << "Couldn't write to file" << std::endl;
+		fileLock.unlock();
+	}
+}
 
 template<typename T, typename D>
 struct Typelist
@@ -62,7 +85,7 @@ template<typename T>
 class Log
 {
 public:
-	
+
 	BOOST_STATIC_ASSERT_MSG((Contains<my_typelist, T>::value), "s");
 
 	void operator()(T log_object)
@@ -76,10 +99,25 @@ template<>
 struct Log<LogTraffic>
 {
 	void operator()(LogTraffic log_traffic)
-	{
-		std::cout << "Traffic information: " << std::endl << "Direction: " << direction_names[log_traffic.direction] << std::endl
+	{		
+		std::vector<std::string> vec;
+		
+		vec.push_back("Traffic information: \n");
+		vec.push_back("Direction: ");
+		vec.push_back(direction_names[log_traffic.direction]);
+		vec.push_back("\nNumber of vehicles: ");
+		vec.push_back(std::to_string(log_traffic.numberOfVehicles));
+		vec.push_back("\nNumber of emergency vehicles: ");
+		vec.push_back(std::to_string(log_traffic.numberOfEmergencies) + "\n");
+		
+		//std::stringstream message;
+
+		/*message << "Traffic information: " << std::endl << "Direction: " << direction_names[log_traffic.direction] << std::endl
 			<< "Number of vehicles: " << log_traffic.numberOfVehicles << std::endl
 			<< "Number of emergency vehicles: " << log_traffic.numberOfEmergencies << std::endl;
+		*/
+
+		WriteToFile("output.txt", vec);
 	}
 };
 
@@ -89,7 +127,7 @@ struct TrafficInfo
 	{
 		totalVehicle += log_traffic.numberOfVehicles;
 
-		if (static_cast<int>(totalVehicle/100) > reachedMilestone)
+		if (static_cast<int>(totalVehicle / 100) > reachedMilestone)
 		{
 			reachedMilestone = totalVehicle / 100;
 			std::cout << "You are vehicle number: " << totalVehicle << " and we are at milestone: " << reachedMilestone << std::endl;
@@ -126,3 +164,4 @@ struct LogMessage : public boost::static_visitor<>
 		sigTraffic(traffic);
 	}
 };
+
