@@ -24,8 +24,24 @@ LightState_5	NS-Red, EW-Yellow
 LightState_6	NS-Red, EW-RedYellow
 
 */
+/*MACROS*/
 #define TIMER std::chrono::seconds(1)
 #define EM_TIMER std::chrono::seconds(4)
+
+#define NE_NS_Green_EW_Red LightState_1 : sc::state<LightState_1, NormalExecution>
+#define NE_NS_Yellow_EW_Red LightState_2 : sc::state<LightState_1, NormalExecution> 
+#define NE_NS_RedYellow_EW_Red LightState_3 : sc::state<LightState_1, NormalExecution>
+#define NE_NS_Red_EW_Green LightState_4 : sc::state<LightState_1, NormalExecution>
+#define NE_NS_Red_EW_Yellow LightState_5 : sc::state<LightState_1, NormalExecution>
+#define NE_NS_Red_EW_RedYellow LightState_6 : sc::state<LightState_1, NormalExecution>
+#define NE_NS_Red_EW_Red InitialRR : sc::state<InitialRR, NormalExecution>
+
+#define EM_NS_Green_EW_Red EM_LightState_1 : sc::state<EM_LightState_1, Emergency>
+#define EM_NS_Red_EW_Yellow EM_LightState_2 : sc::state<EM_LightState_2, Emergency>
+#define EM_NS_Yellow_EW_Red EM_LightState_3 : sc::state<EM_LightState_3, Emergency>
+#define EM_NS_Red_EW_Green EM_LightState_4 : sc::state<EM_LightState_4, Emergency>
+#define EM_NS_Red_EW_Red EM_InitialRR : sc::state<EM_InitialRR, Emergency>
+#define EM_INITIAL EM_Choice : sc::state<EM_Choice, Emergency>
 
 /*
 Events
@@ -38,29 +54,29 @@ struct EvToLS5 : sc::event<EvToLS5> {};
 struct EvToLS6 : sc::event<EvToLS6> {};
 struct EvToRR : sc::event<EvToRR> {};
 
-struct EvEmS1 : sc::event<EvEmS1> {};
+struct EvToEmS1 : sc::event<EvToEmS1> {};
 
-struct EvEmS2 : sc::event<EvEmS2>
+struct EvToEmS2 : sc::event<EvToEmS2>
 {
-	EvEmS2(Direction ev_direction) : navigate_to_(ev_direction)
+	EvToEmS2(Direction ev_direction) : navigate_to_(ev_direction)
 	{}
 
 	Direction navigate_to_;
 };
 
-struct EvEmS3 : sc::event<EvEmS3>
+struct EvToEmS3 : sc::event<EvToEmS3>
 {
-	EvEmS3(Direction ev_direction) : navigate_to_(ev_direction)
+	EvToEmS3(Direction ev_direction) : navigate_to_(ev_direction)
 	{}
 
 	Direction navigate_to_;
 };
 
-struct EvEmS4 : sc::event<EvEmS4> {};
+struct EvToEmS4 : sc::event<EvToEmS4> {};
 
-struct EvEmRR : sc::event<EvEmRR>
+struct EvToEmRR : sc::event<EvToEmRR>
 {
-	EvEmRR(Direction ev_direction) : navigate_to_(ev_direction)
+	EvToEmRR(Direction ev_direction) : navigate_to_(ev_direction)
 	{}
 
 	Direction navigate_to_;
@@ -97,6 +113,11 @@ struct Machine : sc::state_machine<Machine, Operational>
 	{
 		emergency_interrupt_ = true;
 		ev_direction_ = direction;
+	}
+
+	void set_error_interrupt(bool val)
+	{
+		error_interupt_ = val;
 	}
 
 	bool emergency_interrupt_ = false;
@@ -150,12 +171,6 @@ struct YellowFlashing : sc::simple_state<YellowFlashing, Machine>
 Tier-II states
 */
 struct InitialRR;
-
-struct EM_LightState_1;
-struct EM_LightState_2;
-struct EM_LightState_3;
-struct EM_LightState_4;
-struct EM_InitialRR;
 struct EM_Choice;
 
 struct NormalExecution : sc::simple_state<NormalExecution, Operational, InitialRR>
@@ -205,7 +220,7 @@ struct LightState_6;
 * NorthSouth: Red
 * EastWest: Red
 */
-struct InitialRR : sc::state<InitialRR, NormalExecution>
+struct NE_NS_Red_EW_Red
 {
 	//Entry
 	InitialRR(my_context ctx) : my_base(ctx)
@@ -245,7 +260,7 @@ struct InitialRR : sc::state<InitialRR, NormalExecution>
 * NorthSouth: Green
 * EastWest: Red
 */
-struct LightState_1 : sc::state<LightState_1, NormalExecution>
+struct NE_NS_Green_EW_Red
 {
 	//Entry
 	LightState_1(my_context ctx) : my_base(ctx)
@@ -275,7 +290,7 @@ struct LightState_1 : sc::state<LightState_1, NormalExecution>
 * NorthSouth: Yellow
 * EastWest: Red
 */
-struct LightState_2 : sc::state<LightState_2, NormalExecution>
+struct NE_NS_Yellow_EW_Red
 {
 	//Entry
 	LightState_2(my_context ctx) : my_base(ctx)
@@ -305,7 +320,7 @@ struct LightState_2 : sc::state<LightState_2, NormalExecution>
 * NorthSouth: RedYellow
 * EastWest: Red
 */
-struct LightState_3 : sc::state<LightState_3, NormalExecution>
+struct NE_NS_RedYellow_EW_Red
 {
 	//Entry
 	LightState_3(my_context ctx) : my_base(ctx)
@@ -335,7 +350,7 @@ struct LightState_3 : sc::state<LightState_3, NormalExecution>
 * NorthSouth: Red
 * EastWest: Green
 */
-struct LightState_4 : sc::state<LightState_4, NormalExecution>
+struct NE_NS_Red_EW_Green
 {
 	//Entry
 	LightState_4(my_context ctx) : my_base(ctx)
@@ -365,7 +380,7 @@ struct LightState_4 : sc::state<LightState_4, NormalExecution>
 * NorthSouth: Red
 * EastWest: Yellow
 */
-struct LightState_5 : sc::state<LightState_5, NormalExecution>
+struct NE_NS_Red_EW_Yellow
 {
 	//Entry
 	LightState_5(my_context ctx) : my_base(ctx)
@@ -395,7 +410,7 @@ struct LightState_5 : sc::state<LightState_5, NormalExecution>
 * NorthSouth: Red
 * EastWest: RedYellow
 */
-struct LightState_6 : sc::state<LightState_6, NormalExecution>
+struct NE_NS_Red_EW_RedYellow
 {
 	//Entry
 	LightState_6(my_context ctx) : my_base(ctx)
@@ -433,7 +448,7 @@ struct EM_LightState_4;
 struct EM_InitialRR;
 
 
-struct EM_LightState_1 : sc::state<EM_LightState_1, Emergency>
+struct EM_NS_Green_EW_Red 
 {
 	//Entry
 	EM_LightState_1(my_context ctx) : my_base(ctx)
@@ -455,7 +470,7 @@ struct EM_LightState_1 : sc::state<EM_LightState_1, Emergency>
 
 };
 
-struct EM_LightState_2 : sc::state<EM_LightState_2, Emergency>
+struct EM_NS_Red_EW_Yellow 
 {
 	//Entry
 	EM_LightState_2(my_context ctx) : my_base(ctx)
@@ -469,16 +484,16 @@ struct EM_LightState_2 : sc::state<EM_LightState_2, Emergency>
 	}
 
 	//Events
-	typedef sc::custom_reaction<EvEmS2> reactions;
+	typedef sc::custom_reaction<EvToEmS2> reactions;
 
-	sc::result react(const EvEmS2& e)
+	sc::result react(const EvToEmS2& e)
 	{
-		post_event(EvEmRR(e.navigate_to_));
+		post_event(EvToEmRR(e.navigate_to_));
 		return transit<EM_InitialRR>();
 	}
 };
 
-struct EM_LightState_3 : sc::state<EM_LightState_3, Emergency>
+struct EM_NS_Yellow_EW_Red 
 {
 	//Entry
 	EM_LightState_3(my_context ctx) : my_base(ctx)
@@ -492,17 +507,17 @@ struct EM_LightState_3 : sc::state<EM_LightState_3, Emergency>
 	}
 
 	//Events
-	typedef sc::custom_reaction<EvEmS3> reactions;
+	typedef sc::custom_reaction<EvToEmS3> reactions;
 
 
-	sc::result react(const EvEmS3& e)
+	sc::result react(const EvToEmS3& e)
 	{
-		post_event(EvEmRR(e.navigate_to_));
+		post_event(EvToEmRR(e.navigate_to_));
 		return transit<EM_InitialRR>();
 	}
 };
 
-struct EM_LightState_4 : sc::state<EM_LightState_4, Emergency>
+struct EM_NS_Red_EW_Green
 {
 	//Entry
 	EM_LightState_4(my_context ctx) : my_base(ctx)
@@ -523,7 +538,7 @@ struct EM_LightState_4 : sc::state<EM_LightState_4, Emergency>
 	typedef sc::transition<EvEVPassed, NormalExecution> reactions;
 };
 
-struct EM_InitialRR : sc::state<EM_InitialRR, Emergency>
+struct EM_NS_Red_EW_Red
 {
 	//Entry
 	EM_InitialRR(my_context ctx) : my_base(ctx)
@@ -537,24 +552,24 @@ struct EM_InitialRR : sc::state<EM_InitialRR, Emergency>
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::custom_reaction<EvEmRR>, sc::transition<EvEmS1, EM_LightState_1>, sc::transition<EvEmS4, EM_LightState_4> > reactions;
+	typedef boost::mpl::list<sc::custom_reaction<EvToEmRR>, sc::transition<EvToEmS1, EM_LightState_1>, sc::transition<EvToEmS4, EM_LightState_4> > reactions;
 
-	sc::result react(const EvEmRR& e)
+	sc::result react(const EvToEmRR& e)
 	{
 		if (e.navigate_to_ == North || e.navigate_to_ == South)
 		{
-			post_event(EvEmS1());
+			post_event(EvToEmS1());
 		}
 		else
 		{
-			post_event(EvEmS4());
+			post_event(EvToEmS4());
 		}
 
 		return discard_event();
 	}
 };
 
-struct EM_Choice : sc::state<EM_Choice, Emergency>
+struct EM_INITIAL
 {
 	//Entry
 	EM_Choice(my_context ctx) : my_base(ctx)
@@ -569,17 +584,17 @@ struct EM_Choice : sc::state<EM_Choice, Emergency>
 		{
 		case LightStates::LS_1:
 		{
-			post_event(EvEmS2(current_direction));
+			post_event(EvToEmS2(current_direction));
 			break;
 		}
 		case LightStates::LS_4:
 		{
-			post_event(EvEmS3(current_direction));
+			post_event(EvToEmS3(current_direction));
 			break;
 		}
 		default:
 		{
-			post_event(EvEmRR(current_direction));
+			post_event(EvToEmRR(current_direction));
 			break;
 		}
 		}
@@ -592,21 +607,21 @@ struct EM_Choice : sc::state<EM_Choice, Emergency>
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::custom_reaction<EvEmS2>, sc::custom_reaction<EvEmS3>, sc::custom_reaction<EvEmRR> > reactions;
+	typedef boost::mpl::list<sc::custom_reaction<EvToEmS2>, sc::custom_reaction<EvToEmS3>, sc::custom_reaction<EvToEmRR> > reactions;
 
-	sc::result react(const EvEmS2& e)
+	sc::result react(const EvToEmS2& e)
 	{
 		post_event(e);
 		return transit<EM_LightState_2>();
 	}
 
-	sc::result react(const EvEmS3& e)
+	sc::result react(const EvToEmS3& e)
 	{
 		post_event(e);
 		return transit<EM_LightState_3>();
 	}
 
-	sc::result react(const EvEmRR& e)
+	sc::result react(const EvToEmRR& e)
 	{
 		post_event(e);
 		return transit<EM_InitialRR>();
