@@ -44,9 +44,36 @@ namespace SCUtils
 
 	enum Direction
 	{
-		North = 0,
-		South,
-		East,
-		West
+		NORTH = 0,
+		SOUTH,
+		WEST,
+		EAST
 	};
+
+	/*Metaprogramming methods*/
+
+	template<typename T, typename D>
+	struct Typelist
+	{
+		typedef T First;
+		typedef D Rest;
+	};
+
+	struct NullType {};
+
+	template<typename TL, typename Comp>
+	struct Contains
+	{
+		enum
+		{
+			value = std::is_same<typename TL::First, Comp>::value || Contains<typename TL::Rest, Comp>::value
+		};
+	};
+
+	template<typename Comp>
+	struct Contains<NullType, Comp>
+	{
+		enum { value = false };
+	};
+
 }

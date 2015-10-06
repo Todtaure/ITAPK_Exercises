@@ -1,5 +1,8 @@
-#pragma once
+#ifndef VEHICLEDETECTOR_H
+#define VEHICLEDETECTOR_H
 
+#include "Log.h"
+#include "SCUtils.h"
 #include <thread>
 
 inline void VehicleDetection()
@@ -8,31 +11,34 @@ inline void VehicleDetection()
 	LogTraffic SouthTraffic;
 	LogTraffic WestTraffic;
 	LogTraffic EastTraffic;
-	
-	NorthTraffic.direction = LogTraffic::NORTH;
-	SouthTraffic.direction = LogTraffic::SOUTH;
-	WestTraffic.direction = LogTraffic::WEST;
-	EastTraffic.direction = LogTraffic::EAST;
+
+	std::list<LogTraffic> intersection(3);
+
+	NorthTraffic.direction = SCUtils::Direction::NORTH;
+	SouthTraffic.direction = SCUtils::Direction::SOUTH;
+	WestTraffic.direction = SCUtils::Direction::WEST;
+	EastTraffic.direction = SCUtils::Direction::EAST;
 
 	while (true)
 	{
-		NorthTraffic.numberOfVehicles = rand() % 150 + 40;
-		NorthTraffic.numberOfEmergencies = rand() % 5;
+		intersection.push_back(NorthTraffic);
+		intersection.push_back(SouthTraffic);
+		intersection.push_back(WestTraffic);
+		intersection.push_back(EastTraffic);
 
-		SouthTraffic.numberOfVehicles = rand() % 150 + 40;
-		SouthTraffic.numberOfEmergencies = rand() % 5;
-		
-		WestTraffic.numberOfVehicles = rand() % 150 + 40;
-		WestTraffic.numberOfEmergencies = rand() % 5;
+		/*Foreach using Lambda expression*/
+		std::for_each(intersection.begin(), intersection.end(), [](LogTraffic &ti)
+		{
+			ti.numberOfVehicles = rand() % 150 + 40;
+			ti.numberOfEmergencies = rand() % 5;
+		});
 
-		EastTraffic.numberOfVehicles = rand() % 150 + 40;
-		EastTraffic.numberOfEmergencies = rand() % 5;
-			
-		sigTraffic(NorthTraffic);
-		sigTraffic(SouthTraffic);
-		sigTraffic(WestTraffic);
-		sigTraffic(EastTraffic);
+		LogVariant = intersection;
+		/*Applying visitation method*/
+		boost::apply_visitor(LogMessage(), LogVariant);
 
 		std::this_thread::sleep_for(std::chrono::seconds(10));
 	}
 }
+
+#endif

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <thread>
 #include "SCUtils.h"
-#include <vector>
+#include "Log.h"
 
 namespace sc = boost::statechart;
 using namespace SCUtils;
@@ -194,7 +194,11 @@ struct Emergency : sc::state<Emergency, Operational, EM_Choice>
 	//Entry
 	Emergency(my_context ctx) : my_base(ctx)
 	{
-		std::cout << "***" << std::endl << "Entering emergency state!" << std::endl << "***" << std::endl;		
+		std::cout << "***" << std::endl << "Entering emergency state!" << std::endl << "***" << std::endl;
+		LogInfo li;
+		li.message = "THIS IS ACTUALLY WORKING!";
+		LogVariant = li;
+		boost::apply_visitor(LogMessage(), LogVariant);
 	}
 
 	//Exit
@@ -229,11 +233,11 @@ struct NE_NS_Red_EW_Red
 		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
 
 		std::cout << "***" << std::endl;
-		std::cout << "Initial state." << std::endl << "North-South: Red" << std::endl << "East-West: Red" << std::endl;
+		std::cout << "Initial state." << std::endl << "NORTH-SOUTH: Red" << std::endl << "EAST-WEST: Red" << std::endl;
 
 		std::this_thread::sleep_for(TIMER);
 
-		//Nort-South have had green, thus its East-West's turn
+		//Nort-SOUTH have had green, thus its EAST-WEST's turn
 		if (context<Operational>().previous_state_ == LS_2 || context<Operational>().previous_state_ == NORMALEXECUTION)
 		{
 			std::cout << " *EVENT* " << "PostEvent ToSL6" << std::endl;
@@ -268,7 +272,7 @@ struct NE_NS_Green_EW_Red
 		//Check for emergency vehicle approaching.
 		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
 
-		std::cout << "***" << std::endl << "LightState _1." << std::endl << "North-South: Green" << std::endl << "East-West: Red" << std::endl;
+		std::cout << "***" << std::endl << "LightState _1." << std::endl << "NORTH-SOUTH: Green" << std::endl << "EAST-WEST: Red" << std::endl;
 
 		std::this_thread::sleep_for(TIMER);
 
@@ -298,7 +302,7 @@ struct NE_NS_Yellow_EW_Red
 		//Check for emergency vehicle approaching.
 		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
 
-		std::cout << "***" << std::endl << "LightState_2" << std::endl << "North-South: Yellow" << std::endl << "East-West: Red" << std::endl;
+		std::cout << "***" << std::endl << "LightState_2" << std::endl << "NORTH-SOUTH: Yellow" << std::endl << "EAST-WEST: Red" << std::endl;
 
 		std::this_thread::sleep_for(TIMER);
 
@@ -328,7 +332,7 @@ struct NE_NS_RedYellow_EW_Red
 		//Check for emergency vehicle approaching.
 		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
 
-		std::cout << "***" << std::endl << "LightState_3" << std::endl << "North-South: RedYellow" << std::endl << "East-West: Red" << std::endl;
+		std::cout << "***" << std::endl << "LightState_3" << std::endl << "NORTH-SOUTH: RedYellow" << std::endl << "EAST-WEST: Red" << std::endl;
 
 		std::this_thread::sleep_for(TIMER);
 
@@ -358,7 +362,7 @@ struct NE_NS_Red_EW_Green
 		//Check for emergency vehicle approaching.
 		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
 
-		std::cout << "***" << std::endl << "LightState_4" << std::endl << "North-South: Red" << std::endl << "East-West: Green" << std::endl;
+		std::cout << "***" << std::endl << "LightState_4" << std::endl << "NORTH-SOUTH: Red" << std::endl << "EAST-WEST: Green" << std::endl;
 
 		std::this_thread::sleep_for(TIMER);
 
@@ -388,7 +392,7 @@ struct NE_NS_Red_EW_Yellow
 		//Check for emergency vehicle approaching.
 		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
 
-		std::cout << "***" << std::endl << "LightState_5" << std::endl << "North-South: Red" << std::endl << "East-West: Yellow" << std::endl;
+		std::cout << "***" << std::endl << "LightState_5" << std::endl << "NORTH-SOUTH: Red" << std::endl << "EAST-WEST: Yellow" << std::endl;
 
 		std::this_thread::sleep_for(TIMER);
 
@@ -418,7 +422,7 @@ struct NE_NS_Red_EW_RedYellow
 		//Check for emergency vehicle approaching.
 		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
 
-		std::cout << "***" << std::endl << "LightState_6" << std::endl << "North-South: Red" << std::endl << "East-West: RedYellow" << std::endl;
+		std::cout << "***" << std::endl << "LightState_6" << std::endl << "NORTH-SOUTH: Red" << std::endl << "EAST-WEST: RedYellow" << std::endl;
 
 		std::this_thread::sleep_for(TIMER);
 
@@ -453,7 +457,7 @@ struct EM_NS_Green_EW_Red
 	//Entry
 	EM_LightState_1(my_context ctx) : my_base(ctx)
 	{
-		std::cout << "***" << std::endl << "Emergency LightState_1" << std::endl << "North-South: Green" << std::endl << "East-West: Red" << std::endl;
+		std::cout << "***" << std::endl << "Emergency LightState_1" << std::endl << "NORTH-SOUTH: Green" << std::endl << "EAST-WEST: Red" << std::endl;
 		
 		std::this_thread::sleep_for(EM_TIMER);
 		post_event(EvEVPassed());
@@ -475,7 +479,7 @@ struct EM_NS_Red_EW_Yellow
 	//Entry
 	EM_LightState_2(my_context ctx) : my_base(ctx)
 	{
-		std::cout << "***" << std::endl << "Emergency LightState_2" << std::endl << "North-South: Red" << std::endl << "East-West: Yellow" << std::endl;
+		std::cout << "***" << std::endl << "Emergency LightState_2" << std::endl << "NORTH-SOUTH: Red" << std::endl << "EAST-WEST: Yellow" << std::endl;
 	}
 
 	//Exit
@@ -498,7 +502,7 @@ struct EM_NS_Yellow_EW_Red
 	//Entry
 	EM_LightState_3(my_context ctx) : my_base(ctx)
 	{
-		std::cout << "***" << std::endl << "Emergency LightState_3" << std::endl << "North-South: Yellow" << std::endl << "East-West: Red" << std::endl;
+		std::cout << "***" << std::endl << "Emergency LightState_3" << std::endl << "NORTH-SOUTH: Yellow" << std::endl << "EAST-WEST: Red" << std::endl;
 	}
 
 	//Exit
@@ -522,7 +526,7 @@ struct EM_NS_Red_EW_Green
 	//Entry
 	EM_LightState_4(my_context ctx) : my_base(ctx)
 	{
-		std::cout << "***" << std::endl << "Emergency LightState_4" << std::endl << "North-South: Red" << std::endl << "East-West: Green" << std::endl;
+		std::cout << "***" << std::endl << "Emergency LightState_4" << std::endl << "NORTH-SOUTH: Red" << std::endl << "EAST-WEST: Green" << std::endl;
 		
 		std::this_thread::sleep_for(EM_TIMER);
 		post_event(EvEVPassed());
@@ -543,7 +547,7 @@ struct EM_NS_Red_EW_Red
 	//Entry
 	EM_InitialRR(my_context ctx) : my_base(ctx)
 	{
-		std::cout << "***" << std::endl << "Emergency initialRR" << std::endl << "North-South: Red" << std::endl << "East-West: Red" << std::endl;
+		std::cout << "***" << std::endl << "Emergency initialRR" << std::endl << "NORTH-SOUTH: Red" << std::endl << "EAST-WEST: Red" << std::endl;
 	}
 
 	//Exit
@@ -556,7 +560,7 @@ struct EM_NS_Red_EW_Red
 
 	sc::result react(const EvToEmRR& e)
 	{
-		if (e.navigate_to_ == North || e.navigate_to_ == South)
+		if (e.navigate_to_ == NORTH || e.navigate_to_ == SOUTH)
 		{
 			post_event(EvToEmS1());
 		}
