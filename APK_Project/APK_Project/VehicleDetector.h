@@ -7,10 +7,7 @@
 
 inline void VehicleDetection()
 {	
-	LogTraffic NorthTraffic;
-	LogTraffic SouthTraffic;
-	LogTraffic WestTraffic;
-	LogTraffic EastTraffic;
+	LogTraffic NorthTraffic, SouthTraffic, WestTraffic, EastTraffic;
 
 	std::list<LogTraffic> intersection(3);
 
@@ -27,12 +24,20 @@ inline void VehicleDetection()
 		intersection.push_back(EastTraffic);
 
 		/*Foreach using Lambda expression*/
-		std::for_each(intersection.begin(), intersection.end(), [](LogTraffic &ti)
+		/*std::for_each(intersection.begin(), intersection.end(), [](LogTraffic &ti)
 		{
 			ti.numberOfVehicles = rand() % 150 + 40;
 			ti.numberOfEmergencies = rand() % 5;
-		});
+		});*/
 
+		/*For using auto*/
+		for(auto &ti : intersection)
+		{
+			ti.numberOfVehicles = rand() % 150 + 40;
+			ti.numberOfEmergencies = rand() % 5;
+		}
+
+		boost::variant<LogTraffic, LogInfo, LogError, std::list<LogTraffic> > LogVariant;
 		LogVariant = intersection;
 		/*Applying visitation method*/
 		boost::apply_visitor(LogMessage(), LogVariant);

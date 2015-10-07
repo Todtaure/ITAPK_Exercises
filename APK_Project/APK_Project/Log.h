@@ -120,36 +120,11 @@ private:
 	}
 };
 
-struct TrafficInfo
-{
-	void TrafficMilestone(LogTraffic log_traffic)
-	{
-		totalVehicle += log_traffic.numberOfVehicles;
-
-		if (static_cast<int>(totalVehicle / 100) > reachedMilestone)
-		{
-			reachedMilestone = totalVehicle / 100;
-			std::cout << "You are vehicle number: " << totalVehicle << " and we are at milestone: " << reachedMilestone << std::endl;
-		}
-
-		else
-		{
-			std::cout << "Still at " << reachedMilestone << " milestone" << std::endl;
-		}
-	}
-private:
-	int totalVehicle = 0;
-	int reachedMilestone = 0;
-};
-
-
 /*Signal2 */
 static boost::signals2::signal<void(LogInfo)> sigInfo;
-static boost::signals2::signal<void(LogError)> sigError;
+static boost::signals2::signal<void(LogError)> sigError; //TODO: Hvor bruges den?
 static boost::signals2::signal<void(LogTraffic)> sigTraffic;
-static boost::signals2::signal<void(std::list<LogTraffic>)> sigTotalTraffic;
-
-static boost::variant<LogTraffic, LogInfo, LogError, std::list<LogTraffic> > LogVariant;
+static boost::signals2::signal<void(std::list<LogTraffic>)> sigTotalTraffic; //TODO: Merge med sigTraffic og brug variant?
 
 struct LogMessage : public boost::static_visitor<>
 {
@@ -174,5 +149,33 @@ struct LogMessage : public boost::static_visitor<>
 	}
 };
 
+struct TrafficInfo
+{
+	void operator()(std::list<LogTraffic> list)
+	{
+		for(auto &item : list)
+		{
+			TrafficMilestone(item);
+		}
+	}
+
+	void TrafficMilestone(LogTraffic log_traffic)
+	{
+		totalVehicle += log_traffic.numberOfVehicles;
+
+		if (static_cast<int>(totalVehicle / 1000) > reachedMilestone)
+		{
+			reachedMilestone = totalVehicle / 1000;
+			std::cout << "You are vehicle number: " << totalVehicle << " and we are at milestone: " << reachedMilestone << std::endl;
+		}
+		//else
+		//{
+		//	std::cout << "Still at " << reachedMilestone << " milestone" << std::endl;
+		//}
+	}
+private:
+	int totalVehicle = 0;
+	int reachedMilestone = 0;
+};
 
 #endif
