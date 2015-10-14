@@ -1,4 +1,6 @@
-#pragma once
+#ifndef STATEMACHINE_CPP
+#define STATEMACHINE_CPP
+
 #include <boost/statechart/state_machine.hpp>
 #include <boost/statechart/simple_state.hpp>
 #include <boost/statechart/state.hpp>
@@ -43,11 +45,21 @@ LightState_6	NS-Red, EW-RedYellow
 #define EM_INITIAL EM_Choice : sc::state<EM_Choice, Emergency>
 
 #define LOG_STATE(MESSAGE) {									\
-LogInfo li; li.message = MESSAGE;								\
+LogInfo li;														\
+li.message = MESSAGE;											\
 boost::variant<LogTraffic, LogInfo, LogError> StateLogVariant;  \
 StateLogVariant = li;											\
 boost::apply_visitor(LogMessage(), StateLogVariant);			\
 }																\
+
+#define LOG_ERROR(MESSAGE) {									\
+LogError li;													\
+li.message = MESSAGE;											\
+boost::variant<LogTraffic, LogInfo, LogError> StateLogVariant;  \
+StateLogVariant = li;											\
+boost::apply_visitor(LogMessage(), StateLogVariant);			\
+}																\
+
 
 /*
 Events
@@ -91,6 +103,7 @@ struct EvToEmRR : sc::event<EvToEmRR>
 struct EvEVApproaching : sc::event<EvEVApproaching> {};
 struct EvEVPassed : sc::event<EvEVPassed> {};
 
+struct EvError : sc::event<EvError> {};
 
 /*
 StateMachine
@@ -115,20 +128,60 @@ struct Machine : sc::state_machine<Machine, Operational>
 
 	}
 
+	//SETTERS
 	void set_emergency_interrupt(Direction direction)
 	{
+		interrupt_mutex_.lock();
 		emergency_interrupt_ = true;
 		ev_direction_ = direction;
+		interrupt_mutex_.unlock();
 	}
 
-	void set_error_interrupt(bool val)
+	void set_emergency_val(bool val)
 	{
-		error_interupt_ = val;
+		interrupt_mutex_.lock();
+		emergency_interrupt_ = val;
+		interrupt_mutex_.unlock();
 	}
-	//TODO: Atomics? Mutex?
+
+	void toggle_error_interrupt()
+	{
+		interrupt_mutex_.lock();
+		error_interupt_ = !error_interupt_;
+		interrupt_mutex_.unlock();
+	}
+
+	void stop_execution()
+	{
+		stop_execution_ = true;
+	}
+
+	//GETTERS
+	bool get_emergency_val()
+	{
+		return emergency_interrupt_;
+	}
+
+	bool get_error_val()
+	{
+		return error_interupt_;
+	}
+
+	bool get_execution_val()
+	{
+		return stop_execution_;
+	}
+
+	Direction get_direction()
+	{
+		return ev_direction_;
+	}
+
+private:
 	bool emergency_interrupt_ = false;
 	bool error_interupt_ = false;
-
+	bool stop_execution_ = false;
+	std::mutex interrupt_mutex_;
 	Direction ev_direction_;
 };
 
@@ -149,7 +202,7 @@ struct Operational : sc::simple_state<Operational, Machine, NormalExecution>
 	}
 
 	//Exit
-	~Operational()
+	virtual ~Operational()
 	{
 
 	}
@@ -157,19 +210,25 @@ struct Operational : sc::simple_state<Operational, Machine, NormalExecution>
 	LightStates previous_state_;
 };
 
-struct YellowFlashing : sc::simple_state<YellowFlashing, Machine>
+struct YellowFlashing : sc::state<YellowFlashing, Machine>
 {
 	//Entry
-	YellowFlashing()
+	YellowFlashing(my_context ctx) : my_base(ctx)
 	{
-		std::cout << "Error state entered. Intersection " << std::endl;
+		LOG_ERROR("Error state entered.\nAn unknown error has occured, intersection offline.")
+
+		while (context<Machine>().get_error_val() && !(context<Machine>().get_execution_val()));
+
+		post_event(EvError());
 	}
 
 	//Exit
-	~YellowFlashing()
+	virtual ~YellowFlashing()
 	{
-
 	}
+
+	//Events
+	typedef sc::transition<EvError, NormalExecution> reactions;
 };
 
 
@@ -187,7 +246,7 @@ struct NormalExecution : sc::simple_state<NormalExecution, Operational, InitialR
 	}
 
 	//Exit
-	~NormalExecution()
+	virtual ~NormalExecution()
 	{
 
 	}
@@ -205,10 +264,10 @@ struct Emergency : sc::state<Emergency, Operational, EM_Choice>
 	}
 
 	//Exit
-	~Emergency()
+	virtual ~Emergency()
 	{
 		LOG_STATE("Leaving emergency state!")
-		context<Machine>().emergency_interrupt_ = false;
+		context<Machine>().set_emergency_val(false);
 	}
 };
 
@@ -233,11 +292,13 @@ struct NE_NS_Red_EW_Red
 	InitialRR(my_context ctx) : my_base(ctx)
 	{
 		//Check for emergency vehicle approaching.
-		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_execution_val()) { return; }
+		if (context<Machine>().get_emergency_val()) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 
 		LOG_STATE("\n-------\nInitial state.\nNORTH - SOUTH: Red\nEAST - WEST : Red")
 
-		std::this_thread::sleep_for(TIMER);
+			std::this_thread::sleep_for(TIMER);
 
 		//Nort-SOUTH have had green, thus its EAST-WEST's turn
 		if (context<Operational>().previous_state_ == LS_2 || context<Operational>().previous_state_ == NORMALEXECUTION)
@@ -251,13 +312,13 @@ struct NE_NS_Red_EW_Red
 	}
 
 	//Exit
-	~InitialRR()
+	virtual ~InitialRR()
 	{
 		context<Operational>().previous_state_ = INITIALRR;
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::transition<EvToLS6, LightState_6>, sc::transition<EvToLS3, LightState_3>, sc::transition<EvEVApproaching, Emergency> > reactions;
+	typedef boost::mpl::list<sc::transition<EvToLS6, LightState_6>, sc::transition<EvToLS3, LightState_3>, sc::transition<EvEVApproaching, Emergency>, sc::transition<EvError, YellowFlashing> > reactions;
 };
 
 /*
@@ -270,23 +331,24 @@ struct NE_NS_Green_EW_Red
 	LightState_1(my_context ctx) : my_base(ctx)
 	{
 		//Check for emergency vehicle approaching.
-		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_emergency_val()) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 
 		LOG_STATE("\n-------\nLightState 1\nNORTH-SOUTH: Green\nEAST-WEST: Red")
 
-		std::this_thread::sleep_for(TIMER);
+			std::this_thread::sleep_for(TIMER);
 
 		post_event(EvToLS2());
 	}
 
 	//Exit
-	~LightState_1()
+	virtual ~LightState_1()
 	{
 		context<Operational>().previous_state_ = LS_1;
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::transition<EvToLS2, LightState_2>, sc::transition<EvEVApproaching, Emergency> > reactions;
+	typedef boost::mpl::list<sc::transition<EvToLS2, LightState_2>, sc::transition<EvEVApproaching, Emergency>, sc::transition<EvError, YellowFlashing> > reactions;
 };
 
 /*
@@ -299,23 +361,24 @@ struct NE_NS_Yellow_EW_Red
 	LightState_2(my_context ctx) : my_base(ctx)
 	{
 		//Check for emergency vehicle approaching.
-		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_emergency_val()) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 
 		LOG_STATE("\n-------\nLightState 2\nNORTH-SOUTH: Yellow\nEAST-WEST: Red")
 
-		std::this_thread::sleep_for(TIMER);
+			std::this_thread::sleep_for(TIMER);
 
 		post_event(EvToRR());
 	}
 
 	//Exit
-	~LightState_2()
+	virtual ~LightState_2()
 	{
 		context<Operational>().previous_state_ = LS_2;
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::transition<EvToRR, InitialRR>, sc::transition<EvEVApproaching, Emergency> > reactions;
+	typedef boost::mpl::list<sc::transition<EvToRR, InitialRR>, sc::transition<EvEVApproaching, Emergency>, sc::transition<EvError, YellowFlashing> > reactions;
 };
 
 /*
@@ -328,23 +391,24 @@ struct NE_NS_RedYellow_EW_Red
 	LightState_3(my_context ctx) : my_base(ctx)
 	{
 		//Check for emergency vehicle approaching.
-		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_emergency_val()) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 
 		LOG_STATE("\n-------\nLightState 3\nNORTH-SOUTH: RedYellow\nEAST-WEST: Red")
 
-		std::this_thread::sleep_for(TIMER);
+			std::this_thread::sleep_for(TIMER);
 
 		post_event(EvToLS1());
 	}
 
 	//Exit
-	~LightState_3()
+	virtual ~LightState_3()
 	{
 		context<Operational>().previous_state_ = LS_3;
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::transition<EvToLS1, LightState_1>, sc::transition<EvEVApproaching, Emergency> > reactions;
+	typedef boost::mpl::list<sc::transition<EvToLS1, LightState_1>, sc::transition<EvEVApproaching, Emergency>, sc::transition<EvError, YellowFlashing> > reactions;
 };
 
 /*
@@ -357,23 +421,24 @@ struct NE_NS_Red_EW_Green
 	LightState_4(my_context ctx) : my_base(ctx)
 	{
 		//Check for emergency vehicle approaching.
-		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_emergency_val()) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 
 		LOG_STATE("\n-------\nLightState 4\nNORTH-SOUTH: Red\nEAST-WEST: Green")
 
-		std::this_thread::sleep_for(TIMER);
+			std::this_thread::sleep_for(TIMER);
 
 		post_event(EvToLS5());
 	}
 
 	//Exit
-	~LightState_4()
+	virtual ~LightState_4()
 	{
 		context<Operational>().previous_state_ = LS_4;
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::transition<EvToLS5, LightState_5>, sc::transition<EvEVApproaching, Emergency> >  reactions;
+	typedef boost::mpl::list<sc::transition<EvToLS5, LightState_5>, sc::transition<EvEVApproaching, Emergency>, sc::transition<EvError, YellowFlashing> >  reactions;
 };
 
 /*
@@ -386,23 +451,24 @@ struct NE_NS_Red_EW_Yellow
 	LightState_5(my_context ctx) : my_base(ctx)
 	{
 		//Check for emergency vehicle approaching.
-		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_emergency_val()) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 
 		LOG_STATE("\n-------\nLightState 5\nNORTH-SOUTH: Red\nEAST-WEST: Yellow")
 
-		std::this_thread::sleep_for(TIMER);
+			std::this_thread::sleep_for(TIMER);
 
 		post_event(EvToRR());
 	}
 
 	//Exit
-	~LightState_5()
+	virtual ~LightState_5()
 	{
 		context<Operational>().previous_state_ = LS_5;
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::transition<EvToRR, InitialRR>, sc::transition<EvEVApproaching, Emergency> > reactions;
+	typedef boost::mpl::list<sc::transition<EvToRR, InitialRR>, sc::transition<EvEVApproaching, Emergency>, sc::transition<EvError, YellowFlashing> > reactions;
 };
 
 /*
@@ -415,23 +481,24 @@ struct NE_NS_Red_EW_RedYellow
 	LightState_6(my_context ctx) : my_base(ctx)
 	{
 		//Check for emergency vehicle approaching.
-		if (context<Machine>().emergency_interrupt_) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_emergency_val()) { post_event(EvEVApproaching()); return; }
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 
 		LOG_STATE("\n-------\nLightState 6\nNORTH-SOUTH: Red\nEAST-WEST: RedYellow")
 
-		std::this_thread::sleep_for(TIMER);
+			std::this_thread::sleep_for(TIMER);
 
 		post_event(EvToLS4());
 	}
 
 	//Exit
-	~LightState_6()
+	virtual ~LightState_6()
 	{
 		context<Operational>().previous_state_ = LS_6;
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::transition<EvToLS4, LightState_4>, sc::transition<EvEVApproaching, Emergency> > reactions;
+	typedef boost::mpl::list<sc::transition<EvToLS4, LightState_4>, sc::transition<EvEVApproaching, Emergency>, sc::transition<EvError, YellowFlashing> > reactions;
 };
 
 
@@ -446,43 +513,46 @@ struct EM_LightState_4;
 struct EM_InitialRR;
 
 
-struct EM_NS_Green_EW_Red 
+struct EM_NS_Green_EW_Red
 {
 	//Entry
 	EM_LightState_1(my_context ctx) : my_base(ctx)
 	{
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 		LOG_STATE("\n-------\nEmergency LightState 1\nNORTH-SOUTH: Green\nEAST-WEST: Red")
-		
-		std::this_thread::sleep_for(EM_TIMER);
+
+			std::this_thread::sleep_for(EM_TIMER);
 		post_event(EvEVPassed());
 	}
 
 	//Exit
-	~EM_LightState_1()
+	virtual ~EM_LightState_1()
 	{
 		context<Operational>().previous_state_ = LightStates::LS_1;
 	}
 
 	//Events
-	typedef sc::transition<EvEVPassed, NormalExecution> reactions;
+	typedef boost::mpl::list<sc::transition<EvEVPassed, NormalExecution>, sc::transition<EvError, YellowFlashing> > reactions;
 
 };
 
-struct EM_NS_Red_EW_Yellow 
+struct EM_NS_Red_EW_Yellow
 {
 	//Entry
 	EM_LightState_2(my_context ctx) : my_base(ctx)
 	{
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 		LOG_STATE("\n-------\nEmergency LightState 2\nNORTH-SOUTH: Red\nEAST-WEST: Yellow")
+			TIMER;
 	}
 
 	//Exit
-	~EM_LightState_2()
+	virtual ~EM_LightState_2()
 	{
 	}
 
 	//Events
-	typedef sc::custom_reaction<EvToEmS2> reactions;
+	typedef boost::mpl::list<sc::custom_reaction<EvToEmS2>, sc::transition<EvError, YellowFlashing> > reactions;
 
 	sc::result react(const EvToEmS2& e)
 	{
@@ -491,21 +561,23 @@ struct EM_NS_Red_EW_Yellow
 	}
 };
 
-struct EM_NS_Yellow_EW_Red 
+struct EM_NS_Yellow_EW_Red
 {
 	//Entry
 	EM_LightState_3(my_context ctx) : my_base(ctx)
 	{
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 		LOG_STATE("\n-------\nEmergency LightState 3\nNORTH-SOUTH: Yellow\nEAST-WEST: Red")
+			TIMER;
 	}
 
 	//Exit
-	~EM_LightState_3()
+	virtual ~EM_LightState_3()
 	{
 	}
 
 	//Events
-	typedef sc::custom_reaction<EvToEmS3> reactions;
+	typedef boost::mpl::list<sc::custom_reaction<EvToEmS3>, sc::transition<EvError, YellowFlashing> > reactions;
 
 
 	sc::result react(const EvToEmS3& e)
@@ -520,20 +592,21 @@ struct EM_NS_Red_EW_Green
 	//Entry
 	EM_LightState_4(my_context ctx) : my_base(ctx)
 	{
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 		LOG_STATE("\n-------\nEmergency LightState 4\nNORTH-SOUTH: Red\nEAST-WEST: Green")
-		
-		std::this_thread::sleep_for(EM_TIMER);
+
+			std::this_thread::sleep_for(EM_TIMER);
 		post_event(EvEVPassed());
 	}
 
 	//Exit
-	~EM_LightState_4()
+	virtual ~EM_LightState_4()
 	{
 		context<Operational>().previous_state_ = LightStates::LS_4;
 	}
 
 	//Events
-	typedef sc::transition<EvEVPassed, NormalExecution> reactions;
+	typedef boost::mpl::list<sc::transition<EvEVPassed, NormalExecution>, sc::transition<EvError, YellowFlashing> > reactions;
 };
 
 struct EM_NS_Red_EW_Red
@@ -541,16 +614,19 @@ struct EM_NS_Red_EW_Red
 	//Entry
 	EM_InitialRR(my_context ctx) : my_base(ctx)
 	{
+		if (context<Machine>().get_execution_val()) { return; }
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 		LOG_STATE("\n-------\nEmergency InitialRR\nNORTH-SOUTH: Red\nEAST-WEST: Red")
+			TIMER;
 	}
 
 	//Exit
-	~EM_InitialRR()
+	virtual ~EM_InitialRR()
 	{
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::custom_reaction<EvToEmRR>, sc::transition<EvToEmS1, EM_LightState_1>, sc::transition<EvToEmS4, EM_LightState_4> > reactions;
+	typedef boost::mpl::list<sc::custom_reaction<EvToEmRR>, sc::transition<EvToEmS1, EM_LightState_1>, sc::transition<EvToEmS4, EM_LightState_4>, sc::transition<EvError, YellowFlashing> > reactions;
 
 	sc::result react(const EvToEmRR& e)
 	{
@@ -575,8 +651,10 @@ struct EM_INITIAL
 		//std::cout << "***" << std::endl << "Current LightState is: " << context<Operational>().previous_state_ << std::endl;
 		//std::cout << "***" << std::endl << "Emergency Vehicle going: " << context<Machine>().ev_direction_ << std::endl;
 
+		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
+		TIMER;
 		LightStates current = context<Operational>().previous_state_;
-		Direction current_direction = context<Machine>().ev_direction_;
+		Direction current_direction = context<Machine>().get_direction();
 
 		switch (current)
 		{
@@ -599,13 +677,13 @@ struct EM_INITIAL
 	}
 
 	//Exit
-	~EM_Choice()
+	virtual ~EM_Choice()
 	{
-		
+
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::custom_reaction<EvToEmS2>, sc::custom_reaction<EvToEmS3>, sc::custom_reaction<EvToEmRR> > reactions;
+	typedef boost::mpl::list<sc::custom_reaction<EvToEmS2>, sc::custom_reaction<EvToEmS3>, sc::custom_reaction<EvToEmRR>, sc::transition<EvError, YellowFlashing> > reactions;
 
 	sc::result react(const EvToEmS2& e)
 	{
@@ -625,3 +703,5 @@ struct EM_INITIAL
 		return transit<EM_InitialRR>();
 	}
 };
+
+#endif

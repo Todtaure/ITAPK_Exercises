@@ -8,17 +8,22 @@
 #include <ctime> //Very much NOT unused!
 #include "SCUtils.h"
 #include <mutex>
+#include <vector>
 
 /*Logging type classes*/
 
-struct LogInfo
+struct Log
 {
 	std::string message;
 };
 
-struct LogError
+struct LogInfo : public Log
 {
-	std::string message;
+};
+
+struct LogError : public Log
+{
+	std::string error_code_;
 };
 
 static const char* direction_names[] = { "NORTH", "SOUTH", "WEST", "EAST" };
@@ -56,34 +61,33 @@ inline void WriteToFile(std::string path, std::vector<std::string> vec)
 	}
 	catch (std::ostream::failure e)
 	{
-		std::cout << "Couldn't write to file" << std::endl;
+		std::cout << "Couldn't write log to file." << std::endl;
 		fileLock.unlock();
 	}
 }
 
-/*Log classes*/
+/*Logger classes*/
 
-/*Log base template restrictor*/
-typedef SCUtils::Typelist<LogInfo, SCUtils::Typelist<LogError, SCUtils::NullType> > my_typelist;
+/*Logger base template restrictor*/
+typedef SCUtils::Typelist<Log, SCUtils::Typelist<LogInfo, SCUtils::Typelist<LogError, SCUtils::NullType>  > > my_typelist;
 
 template<typename T>
-class Log
+class Logger
 {
 public:
 
-	BOOST_STATIC_ASSERT_MSG((SCUtils::Contains<my_typelist, T>::value), "Type is not valid for base template Log<T>");
+	BOOST_STATIC_ASSERT_MSG((SCUtils::Contains<my_typelist, T>::value), "Type is not valid for base template Logger<T>");
 
 	void operator()(T log_object)
 	{
 		std::time_t currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
-		std::cout << "Log " << ctime(&currentTime) << ": " << log_object.message << std::endl;
+		std::cout << "Logger " << ctime(&currentTime) << ": " << log_object.message << std::endl;
 	}
-private:
 };
 
 template<>
-struct Log<LogTraffic>
+struct Logger<LogTraffic>
 {
 	void operator()(LogTraffic log_traffic)
 	{		
@@ -93,7 +97,7 @@ struct Log<LogTraffic>
 	void operator()(std::list<LogTraffic> log_traffic)
 	{
 		/*Using foreach and std::bind to call log*/
-		std::for_each(log_traffic.begin(), log_traffic.end(), std::bind(&Log::log, this, std::placeholders::_1));
+		std::for_each(log_traffic.begin(), log_traffic.end(), std::bind(&Logger::log, this, std::placeholders::_1));
 	}
 
 private:
@@ -120,22 +124,17 @@ private:
 	}
 };
 
+
 /*Signal2 */
-static boost::signals2::signal<void(LogInfo)> sigInfo;
-static boost::signals2::signal<void(LogError)> sigError; //TODO: Hvor bruges den?
+static boost::signals2::signal<void(Log)> sigLog;
 static boost::signals2::signal<void(LogTraffic)> sigTraffic;
 static boost::signals2::signal<void(std::list<LogTraffic>)> sigTotalTraffic; //TODO: Merge med sigTraffic og brug variant?
 
 struct LogMessage : public boost::static_visitor<>
 {
-	void operator()(LogInfo info) const
+	void operator()(Log log) const
 	{
-		sigInfo(info);
-	}
-
-	void operator()(LogError error) const
-	{
-		sigError(error);
+		sigLog(log);
 	}
 
 	void operator()(LogTraffic traffic) const
@@ -168,10 +167,7 @@ struct TrafficInfo
 			reachedMilestone = totalVehicle / 1000;
 			std::cout << "You are vehicle number: " << totalVehicle << " and we are at milestone: " << reachedMilestone << std::endl;
 		}
-		//else
-		//{
-		//	std::cout << "Still at " << reachedMilestone << " milestone" << std::endl;
-		//}
+
 	}
 private:
 	int totalVehicle = 0;

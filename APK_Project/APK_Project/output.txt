@@ -198,3 +198,1135 @@ Traffic information:
 Direction: EAST
 Number of vehicles: 109
 Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 101
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 185
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 42
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 182
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 61
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 87
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 109
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 101
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 185
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 42
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 182
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 61
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 87
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 109
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 101
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 185
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 42
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 182
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 61
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 87
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 109
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 101
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 185
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 42
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 182
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 61
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 87
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 109
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 57
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 125
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 93
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 162
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 163
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 181
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: EAST
+Number of vehicles: 93
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 87
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: WEST
+Number of vehicles: 127
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: EAST
+Number of vehicles: 63
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 119
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 56
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: WEST
+Number of vehicles: 180
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 178
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 101
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 185
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 42
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 182
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 61
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 87
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 109
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 101
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 185
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 42
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 182
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 61
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 87
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 109
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 57
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 125
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 93
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 162
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 163
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 181
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: EAST
+Number of vehicles: 93
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 87
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: WEST
+Number of vehicles: 127
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: EAST
+Number of vehicles: 63
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 119
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 56
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: WEST
+Number of vehicles: 180
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 178
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 80
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 104
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 186
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 180
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 110
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: WEST
+Number of vehicles: 46
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: EAST
+Number of vehicles: 133
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 169
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 124
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 46
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 56
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 171
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 184
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 66
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 177
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 169
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 73
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 179
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 94
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 63
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 111
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 114
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: WEST
+Number of vehicles: 160
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: EAST
+Number of vehicles: 117
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 187
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 176
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: WEST
+Number of vehicles: 51
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: EAST
+Number of vehicles: 45
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 145
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 171
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: WEST
+Number of vehicles: 90
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 56
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 97
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 47
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 47
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 43
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 135
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 149
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 162
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 96
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 103
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 40
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 52
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: WEST
+Number of vehicles: 50
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: EAST
+Number of vehicles: 64
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 138
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 185
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 42
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 131
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 114
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 136
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 88
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: EAST
+Number of vehicles: 58
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 71
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 93
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 58
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 40
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 167
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 168
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 88
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 147
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 100
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 53
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 99
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: EAST
+Number of vehicles: 75
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 101
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 185
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 42
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 182
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 61
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 87
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 109
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 57
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 125
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 93
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 162
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 163
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 181
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: EAST
+Number of vehicles: 93
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 87
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: WEST
+Number of vehicles: 127
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: EAST
+Number of vehicles: 63
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 119
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 56
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: WEST
+Number of vehicles: 180
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 178
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 101
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 185
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 42
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 182
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 61
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 87
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 109
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 101
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 185
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 67
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 181
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 42
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: WEST
+Number of vehicles: 182
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: EAST
+Number of vehicles: 61
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 108
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 87
+Number of emergency vehicles: 1
+Traffic information: 
+Direction: WEST
+Number of vehicles: 111
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: EAST
+Number of vehicles: 109
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2

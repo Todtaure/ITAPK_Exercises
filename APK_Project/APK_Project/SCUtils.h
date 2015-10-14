@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCUTILS_HPP
+#define SCUTILS_HPP
 
 namespace SCUtils
 {
@@ -77,3 +78,5 @@ namespace SCUtils
 	};
 
 }
+
+#endif

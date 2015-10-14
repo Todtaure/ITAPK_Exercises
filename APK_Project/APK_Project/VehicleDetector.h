@@ -39,6 +39,7 @@ inline void VehicleDetection()
 
 		boost::variant<LogTraffic, LogInfo, LogError, std::list<LogTraffic> > LogVariant;
 		LogVariant = intersection;
+
 		/*Applying visitation method*/
 		boost::apply_visitor(LogMessage(), LogVariant);
 
