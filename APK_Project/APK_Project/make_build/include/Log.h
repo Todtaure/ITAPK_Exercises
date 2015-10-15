@@ -40,12 +40,13 @@ struct LogTraffic
 inline void WriteToFile(std::vector<std::string> vec)
 {
 	std::mutex fileLock;
+	std::fstream fs;
 	try
 	{
 		std::string path = "output.txt";
 
 		fileLock.lock();
-		std::fstream fs(path, std::fstream::out | std::fstream::app);
+		fs.open(path, std::fstream::out | std::fstream::app);
 
 		/*Set exceptions error mask: failbit: logical i/o error, badbit: read/write error*/
 		fs.exceptions(std::ostream::failbit | std::ostream::badbit);
@@ -65,6 +66,7 @@ inline void WriteToFile(std::vector<std::string> vec)
 	{
 		std::cout << "Couldn't write log to file." << std::endl;
 		fileLock.unlock();
+		fs.close();
 	}
 }
 

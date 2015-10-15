@@ -108,7 +108,7 @@ struct Machine : sc::state_machine<Machine, Operational>
 	}
 
 	//Exit
-	~Machine()
+	virtual ~Machine()
 	{
 
 	}
@@ -177,7 +177,7 @@ struct Operational : sc::simple_state<Operational, Machine, NormalExecution>
 	//Entry
 	Operational() : previous_state_(LightStates::NORMALEXECUTION)
 	{
-
+		
 	}
 
 	//Exit
@@ -238,7 +238,6 @@ struct Emergency : sc::state<Emergency, Operational, EM_Choice>
 	//Entry
 	Emergency(my_context ctx) : my_base(ctx)
 	{
-		//std::cout << "***" << std::endl << "Entering emergency state!" << std::endl << "***" << std::endl;
 		LOG_STATE("Entering emegency state!")
 	}
 
