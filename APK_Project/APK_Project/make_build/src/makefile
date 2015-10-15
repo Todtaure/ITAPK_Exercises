@@ -1,8 +1,11 @@
 CC=g++
-IDIR = ../../APK_Project
+IDIR = ../include
 CFLAGS=-I$(IDIR)
 
 ODIR = obj
+LDIR = ../lib
+
+LIBS  = 
 
 _DEPS = Log.h SCUtils.h VehicleDetector.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
@@ -14,7 +17,7 @@ $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 intersection: $(OBJ)
-	$(CC) -Wall -g -o $@ $^ $(CFLAGS)
+	$(CC) -Wall -g -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 
