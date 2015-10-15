@@ -5,8 +5,8 @@
 #include <boost/variant.hpp>
 #include <boost/signals2/signal.hpp>
 #include <fstream>
-#include <ctime> //Very much NOT unused!
-#include "SCUtils.h"
+#include <ctime>
+#include "../include/SCUtils.h"
 #include <mutex>
 #include <vector>
 

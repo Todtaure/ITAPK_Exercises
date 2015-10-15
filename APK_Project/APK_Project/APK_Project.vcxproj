@@ -18,6 +18,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="make_build\include\Log.h" />
+    <ClInclude Include="make_build\include\SCUtils.h" />
+    <ClInclude Include="make_build\include\VehicleDetector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="make_build\src\IntersectionStateMachine.cpp" />
+    <ClCompile Include="make_build\src\main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BDD455BB-E123-49E4-955F-EE6F48B8D5F4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -147,15 +156,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="IntersectionStateMachine.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="SCUtils.h" />
-    <ClInclude Include="VehicleDetector.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
