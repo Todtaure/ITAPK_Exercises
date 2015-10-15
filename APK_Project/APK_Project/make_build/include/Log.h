@@ -37,21 +37,23 @@ struct LogTraffic
 
 /*IO methods*/
 
-inline void WriteToFile(std::string path, std::vector<std::string> vec)
+inline void WriteToFile(std::vector<std::string> vec)
 {
 	std::mutex fileLock;
 	try
 	{
+		std::string path = "output.txt";
+
 		fileLock.lock();
 		std::fstream fs(path, std::fstream::out | std::fstream::app);
 
-		/*Set exceptions error mask. failbit: logical i/o error. badbit: read/write error*/
+		/*Set exceptions error mask: failbit: logical i/o error, badbit: read/write error*/
 		fs.exceptions(std::ostream::failbit | std::ostream::badbit);
 
 		std::ostream_iterator<std::string> output(fs);
 		std::copy(vec.begin(), vec.end(), output);
 		
-		/*More simple implementation below
+		/*Different implementation below using stringstream
 		std::ostream_iterator<std::string> output(fs);
 		fs << ss.rdbuf();
 		*/
@@ -113,14 +115,15 @@ private:
 		vec.push_back("\nNumber of emergency vehicles: ");
 		vec.push_back(std::to_string(log_traffic.numberOfEmergencies) + "\n");
 
-		/*More simple implentation below*/
-		//std::stringstream message;
-		/*message << "Traffic information: " << std::endl << "Direction: " << direction_names[log_traffic.direction] << std::endl
+		/*Different implentation below*/
+		/*
+		std::stringstream message;
+		message << "Traffic information: " << std::endl << "Direction: " << direction_names[log_traffic.direction] << std::endl
 		<< "Number of vehicles: " << log_traffic.numberOfVehicles << std::endl
 		<< "Number of emergency vehicles: " << log_traffic.numberOfEmergencies << std::endl;
 		*/
 
-		WriteToFile("output.txt", vec);
+		WriteToFile(vec);
 	}
 };
 
@@ -128,8 +131,9 @@ private:
 /*Signal2 */
 static boost::signals2::signal<void(Log)> sigLog;
 static boost::signals2::signal<void(LogTraffic)> sigTraffic;
-static boost::signals2::signal<void(std::list<LogTraffic>)> sigTotalTraffic; //TODO: Merge med sigTraffic og brug variant?
+static boost::signals2::signal<void(std::list<LogTraffic>)> sigTotalTraffic;
 
+/*LogMessage signals subscribers*/
 struct LogMessage : public boost::static_visitor<>
 {
 	void operator()(Log log) const
@@ -154,11 +158,11 @@ struct TrafficInfo
 	{
 		for(auto &item : list)
 		{
-			TrafficMilestone(item);
+			PrintTrafficMilestones(item);
 		}
 	}
 
-	void TrafficMilestone(LogTraffic log_traffic)
+	void PrintTrafficMilestones(LogTraffic log_traffic)
 	{
 		totalVehicle += log_traffic.numberOfVehicles;
 

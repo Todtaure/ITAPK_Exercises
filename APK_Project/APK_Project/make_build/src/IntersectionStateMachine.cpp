@@ -29,21 +29,6 @@ LightState_6	NS-Red, EW-RedYellow
 #define TIMER std::chrono::seconds(3)
 #define EM_TIMER std::chrono::seconds(5)
 
-#define NE_NS_Green_EW_Red LightState_1 : sc::state<LightState_1, NormalExecution>
-#define NE_NS_Yellow_EW_Red LightState_2 : sc::state<LightState_2, NormalExecution> 
-#define NE_NS_RedYellow_EW_Red LightState_3 : sc::state<LightState_3, NormalExecution>
-#define NE_NS_Red_EW_Green LightState_4 : sc::state<LightState_4, NormalExecution>
-#define NE_NS_Red_EW_Yellow LightState_5 : sc::state<LightState_5, NormalExecution>
-#define NE_NS_Red_EW_RedYellow LightState_6 : sc::state<LightState_6, NormalExecution>
-#define NE_NS_Red_EW_Red InitialRR : sc::state<InitialRR, NormalExecution>
-
-#define EM_NS_Green_EW_Red EM_LightState_1 : sc::state<EM_LightState_1, Emergency>
-#define EM_NS_Red_EW_Yellow EM_LightState_2 : sc::state<EM_LightState_2, Emergency>
-#define EM_NS_Yellow_EW_Red EM_LightState_3 : sc::state<EM_LightState_3, Emergency>
-#define EM_NS_Red_EW_Green EM_LightState_4 : sc::state<EM_LightState_4, Emergency>
-#define EM_NS_Red_EW_Red EM_InitialRR : sc::state<EM_InitialRR, Emergency>
-#define EM_INITIAL EM_Choice : sc::state<EM_Choice, Emergency>
-
 #define LOG_STATE(MESSAGE) {									\
 LogInfo li;														\
 li.message = MESSAGE;											\
@@ -280,7 +265,7 @@ struct LightState_6;
 * NorthSouth: Red
 * EastWest: Red
 */
-struct NE_NS_Red_EW_Red
+struct InitialRR : sc::state<InitialRR, NormalExecution>
 {
 	//Entry
 	InitialRR(my_context ctx) : my_base(ctx)
@@ -319,7 +304,7 @@ struct NE_NS_Red_EW_Red
 * NorthSouth: Green
 * EastWest: Red
 */
-struct NE_NS_Green_EW_Red
+struct LightState_1 : sc::state<LightState_1, NormalExecution>
 {
 	//Entry
 	LightState_1(my_context ctx) : my_base(ctx)
@@ -342,14 +327,16 @@ struct NE_NS_Green_EW_Red
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::transition<EvToLS2, LightState_2>, sc::transition<EvEVApproaching, Emergency>, sc::transition<EvError, YellowFlashing> > reactions;
+	typedef boost::mpl::list<sc::transition<EvToLS2, LightState_2>, 
+		sc::transition<EvEVApproaching, Emergency>, 
+		sc::transition<EvError, YellowFlashing> > reactions;
 };
 
 /*
 * NorthSouth: Yellow
 * EastWest: Red
 */
-struct NE_NS_Yellow_EW_Red
+struct LightState_2 : sc::state<LightState_2, NormalExecution>
 {
 	//Entry
 	LightState_2(my_context ctx) : my_base(ctx)
@@ -379,7 +366,7 @@ struct NE_NS_Yellow_EW_Red
 * NorthSouth: RedYellow
 * EastWest: Red
 */
-struct NE_NS_RedYellow_EW_Red
+struct LightState_3 : sc::state<LightState_3, NormalExecution>
 {
 	//Entry
 	LightState_3(my_context ctx) : my_base(ctx)
@@ -409,7 +396,7 @@ struct NE_NS_RedYellow_EW_Red
 * NorthSouth: Red
 * EastWest: Green
 */
-struct NE_NS_Red_EW_Green
+struct LightState_4 : sc::state<LightState_4, NormalExecution>
 {
 	//Entry
 	LightState_4(my_context ctx) : my_base(ctx)
@@ -439,7 +426,7 @@ struct NE_NS_Red_EW_Green
 * NorthSouth: Red
 * EastWest: Yellow
 */
-struct NE_NS_Red_EW_Yellow
+struct LightState_5 : sc::state<LightState_5, NormalExecution>
 {
 	//Entry
 	LightState_5(my_context ctx) : my_base(ctx)
@@ -469,7 +456,7 @@ struct NE_NS_Red_EW_Yellow
 * NorthSouth: Red
 * EastWest: RedYellow
 */
-struct NE_NS_Red_EW_RedYellow
+struct LightState_6 : sc::state<LightState_6, NormalExecution>
 {
 	//Entry
 	LightState_6(my_context ctx) : my_base(ctx)
@@ -507,7 +494,7 @@ struct EM_LightState_4;
 struct EM_InitialRR;
 
 
-struct EM_NS_Green_EW_Red
+struct EM_LightState_1 : sc::state<EM_LightState_1, Emergency>
 {
 	//Entry
 	EM_LightState_1(my_context ctx) : my_base(ctx)
@@ -530,7 +517,7 @@ struct EM_NS_Green_EW_Red
 
 };
 
-struct EM_NS_Red_EW_Yellow
+struct EM_LightState_2 : sc::state<EM_LightState_2, Emergency>
 {
 	//Entry
 	EM_LightState_2(my_context ctx) : my_base(ctx)
@@ -555,7 +542,7 @@ struct EM_NS_Red_EW_Yellow
 	}
 };
 
-struct EM_NS_Yellow_EW_Red
+struct EM_LightState_3 : sc::state<EM_LightState_3, Emergency>
 {
 	//Entry
 	EM_LightState_3(my_context ctx) : my_base(ctx)
@@ -581,7 +568,7 @@ struct EM_NS_Yellow_EW_Red
 	}
 };
 
-struct EM_NS_Red_EW_Green
+struct EM_LightState_4 : sc::state<EM_LightState_4, Emergency>
 {
 	//Entry
 	EM_LightState_4(my_context ctx) : my_base(ctx)
@@ -603,7 +590,7 @@ struct EM_NS_Red_EW_Green
 	typedef boost::mpl::list<sc::transition<EvEVPassed, NormalExecution>, sc::transition<EvError, YellowFlashing> > reactions;
 };
 
-struct EM_NS_Red_EW_Red
+struct EM_InitialRR : sc::state<EM_InitialRR, Emergency>
 {
 	//Entry
 	EM_InitialRR(my_context ctx) : my_base(ctx)
@@ -637,7 +624,7 @@ struct EM_NS_Red_EW_Red
 	}
 };
 
-struct EM_INITIAL
+struct EM_Choice : sc::state<EM_Choice, Emergency>
 {
 	//Entry
 	EM_Choice(my_context ctx) : my_base(ctx)
