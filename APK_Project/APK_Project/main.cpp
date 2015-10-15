@@ -14,12 +14,13 @@ int main()
 	sigTotalTraffic.connect(Logger<LogTraffic>());
 	sigTotalTraffic.connect(boost::ref(tInfo));
 
-	Machine *m = new Machine();
+	Machine *m = new Machine;
+	VehicleDetection *vd = new VehicleDetection;
 
 	std::thread intersection_thread(std::bind(&Machine::initiate, m));
-	std::thread vehicle_detector_thread(VehicleDetection);
+	std::thread vehicle_detector_thread(std::bind(&VehicleDetection::Run, vd));
 
-	char in = '1';
+	char in = NULL;
 
 	while (in != 'q')
 	{
@@ -54,17 +55,22 @@ int main()
 			case 'q':
 			{
 				m->stop_execution();
+				vd->stop_execution();
+				std::cout << "Waiting for StateMachine to stop.\nWaiting for VehicleDetection to stop." << std::endl;
 				break;
 			}
 		}
 	}
 
 	getchar();	
+
 	intersection_thread.join();
-	std::cout << "Statemachine execution has stopped." << std::endl;
+	std::cout << "StateMachine execution has stopped." << std::endl;
 	vehicle_detector_thread.join();
+	std::cout << "VehicleDetection execution has stopped." << std::endl;
 	
 	delete m;
+	delete vd;
 
 	return 0;
 }

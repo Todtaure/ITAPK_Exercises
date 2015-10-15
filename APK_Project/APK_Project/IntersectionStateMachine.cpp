@@ -26,8 +26,8 @@ LightState_6	NS-Red, EW-RedYellow
 */
 
 /*MACROS*/
-#define TIMER std::chrono::seconds(1)
-#define EM_TIMER std::chrono::seconds(4)
+#define TIMER std::chrono::seconds(3)
+#define EM_TIMER std::chrono::seconds(5)
 
 #define NE_NS_Green_EW_Red LightState_1 : sc::state<LightState_1, NormalExecution>
 #define NE_NS_Yellow_EW_Red LightState_2 : sc::state<LightState_2, NormalExecution> 
@@ -131,24 +131,18 @@ struct Machine : sc::state_machine<Machine, Operational>
 	//SETTERS
 	void set_emergency_interrupt(Direction direction)
 	{
-		interrupt_mutex_.lock();
 		emergency_interrupt_ = true;
 		ev_direction_ = direction;
-		interrupt_mutex_.unlock();
 	}
 
 	void set_emergency_val(bool val)
 	{
-		interrupt_mutex_.lock();
 		emergency_interrupt_ = val;
-		interrupt_mutex_.unlock();
 	}
 
 	void toggle_error_interrupt()
 	{
-		interrupt_mutex_.lock();
 		error_interupt_ = !error_interupt_;
-		interrupt_mutex_.unlock();
 	}
 
 	void stop_execution()
