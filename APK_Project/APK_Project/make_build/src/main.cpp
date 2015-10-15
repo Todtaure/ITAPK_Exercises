@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MAIN_CPP
+#define MAIN_CPP
+
 #include "IntersectionStateMachine.cpp"
 #include "../include/VehicleDetector.h"
 #include "../include/Log.h"
@@ -76,3 +78,5 @@ int main()
 
 	return 0;
 }
+
+#endif
