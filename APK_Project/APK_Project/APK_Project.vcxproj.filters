@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="make_build\src\IntersectionStateMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -26,13 +23,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="make_build\include\VehicleDetector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="make_build\include\Log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="make_build\include\SCUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="make_build\include\VehicleDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

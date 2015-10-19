@@ -1562,3 +1562,59 @@ Traffic information:
 Direction: EAST
 Number of vehicles: 178
 Number of emergency vehicles: 1
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 81
+Number of emergency vehicles: 2
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 74
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 159
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: NORTH
+Number of vehicles: 118
+Number of emergency vehicles: 3
+Traffic information: 
+Direction: SOUTH
+Number of vehicles: 152
+Number of emergency vehicles: 4
+Traffic information: 
+Direction: WEST
+Number of vehicles: 45
+Number of emergency vehicles: 0
+Traffic information: 
+Direction: EAST
+Number of vehicles: 71
+Number of emergency vehicles: 2
