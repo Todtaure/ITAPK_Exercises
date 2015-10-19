@@ -4,6 +4,7 @@
 #include "../include/Log.h"
 #include "../include/SCUtils.h"
 #include <thread>
+#include <list>
 
 struct VehicleDetection
 {
