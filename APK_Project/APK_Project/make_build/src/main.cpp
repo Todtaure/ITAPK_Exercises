@@ -2,7 +2,7 @@
 #define MAIN_CPP
 
 #include "IntersectionStateMachine.cpp"
-#include "../include/VehicleDetector.h"
+#include "../include/VehicleDetection.h"
 #include "../include/Log.h"
 #include "../include/SCUtils.h"
 #include <sstream>
@@ -24,7 +24,7 @@ int main()
 	std::thread intersection_thread(std::bind(&Machine::initiate, m));
 	std::thread vehicle_detector_thread(std::bind(&VehicleDetection::Run, vd));
 
-	char in = NULL;
+	char in = 'g';
 
 	while (in != 'q')
 	{

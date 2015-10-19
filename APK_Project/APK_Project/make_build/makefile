@@ -18,7 +18,7 @@ OTHERFILES = output.txt
 LIBS  = -lpthread
 
 #Dependencies and objects setup
-_DEPS = Log.h SCUtils.h VehicleDetector.h
+_DEPS = Log.h SCUtils.h VehicleDetection.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 _OBJ = main.o IntersectionStateMachine.o
