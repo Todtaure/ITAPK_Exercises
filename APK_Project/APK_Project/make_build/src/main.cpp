@@ -10,27 +10,28 @@
 
 using namespace SCUtils;
 
-int main()
+struct Controller
 {
-	TrafficInfo tInfo;
+	void Run() const
+	{	
+		TrafficInfo tInfo;
+		Machine *m = new Machine;
+		VehicleDetection *vd = new VehicleDetection;
 
-	sigLog.connect(Logger<Log>());
-	sigTotalTraffic.connect(Logger<LogTraffic>());
-	sigTotalTraffic.connect(boost::ref(tInfo));
+		sigLog.connect(Logger<Log>());
+		sigTotalTraffic.connect(Logger<LogTraffic>());
+		sigTotalTraffic.connect(boost::ref(tInfo));
+		
+		std::thread intersection_thread(std::bind(&Machine::initiate, m));
+		std::thread vehicle_detector_thread(std::bind(&VehicleDetection::Run, vd));
 
-	Machine *m = new Machine;
-	VehicleDetection *vd = new VehicleDetection;
+		char in = 'g';
 
-	std::thread intersection_thread(std::bind(&Machine::initiate, m));
-	std::thread vehicle_detector_thread(std::bind(&VehicleDetection::Run, vd));
-
-	char in = 'g';
-
-	while (in != 'q')
-	{
-		std::cin >> in;
-		switch (in)
+		while (in != 'q')
 		{
+			std::cin >> in;
+			switch (in)
+			{
 			case 'n':
 			{
 				m->set_emergency_interrupt(NORTH);
@@ -63,19 +64,26 @@ int main()
 				std::cout << "Waiting for StateMachine to stop.\nWaiting for VehicleDetection to stop." << std::endl;
 				break;
 			}
+			}
 		}
+
+		getchar();
+
+		intersection_thread.join();
+		std::cout << "StateMachine execution has stopped." << std::endl;
+		vehicle_detector_thread.join();
+		std::cout << "VehicleDetection execution has stopped." << std::endl;
+
+		delete m;
+		delete vd;
 	}
+};
 
-	getchar();	
-
-	intersection_thread.join();
-	std::cout << "StateMachine execution has stopped." << std::endl;
-	vehicle_detector_thread.join();
-	std::cout << "VehicleDetection execution has stopped." << std::endl;
+int main()
+{
 	
-	delete m;
-	delete vd;
-
+	Controller ctrl;
+	ctrl.Run();
 	return 0;
 }
 
