@@ -108,7 +108,7 @@ struct Machine : sc::state_machine<Machine, Operational>
 	}
 
 	//Exit
-	virtual ~Machine()
+	~Machine()
 	{
 
 	}
@@ -177,11 +177,11 @@ struct Operational : sc::simple_state<Operational, Machine, NormalExecution>
 	//Entry
 	Operational() : previous_state_(LightStates::NORMALEXECUTION)
 	{
-		
+
 	}
 
 	//Exit
-	virtual ~Operational()
+	~Operational()
 	{
 
 	}
@@ -196,13 +196,13 @@ struct YellowFlashing : sc::state<YellowFlashing, Machine>
 	{
 		LOG_ERROR("Error state entered.\nAn unknown error has occured, intersection offline.")
 
-		while (context<Machine>().get_error_val() && !(context<Machine>().get_execution_val()));
+			while (context<Machine>().get_error_val() && !(context<Machine>().get_execution_val()));
 
 		post_event(EvError());
 	}
 
 	//Exit
-	virtual ~YellowFlashing()
+	~YellowFlashing()
 	{
 	}
 
@@ -225,7 +225,7 @@ struct NormalExecution : sc::simple_state<NormalExecution, Operational, InitialR
 	}
 
 	//Exit
-	virtual ~NormalExecution()
+	~NormalExecution()
 	{
 
 	}
@@ -242,10 +242,10 @@ struct Emergency : sc::state<Emergency, Operational, EM_Choice>
 	}
 
 	//Exit
-	virtual ~Emergency()
+	~Emergency()
 	{
 		LOG_STATE("Leaving emergency state!")
-		context<Machine>().set_emergency_val(false);
+			context<Machine>().set_emergency_val(false);
 	}
 };
 
@@ -290,7 +290,7 @@ struct InitialRR : sc::state<InitialRR, NormalExecution>
 	}
 
 	//Exit
-	virtual ~InitialRR()
+	~InitialRR()
 	{
 		context<Operational>().previous_state_ = INITIALRR;
 	}
@@ -320,14 +320,14 @@ struct LightState_1 : sc::state<LightState_1, NormalExecution>
 	}
 
 	//Exit
-	virtual ~LightState_1()
+	~LightState_1()
 	{
 		context<Operational>().previous_state_ = LS_1;
 	}
 
 	//Events
-	typedef boost::mpl::list<sc::transition<EvToLS2, LightState_2>, 
-		sc::transition<EvEVApproaching, Emergency>, 
+	typedef boost::mpl::list<sc::transition<EvToLS2, LightState_2>,
+		sc::transition<EvEVApproaching, Emergency>,
 		sc::transition<EvError, YellowFlashing> > reactions;
 };
 
@@ -352,7 +352,7 @@ struct LightState_2 : sc::state<LightState_2, NormalExecution>
 	}
 
 	//Exit
-	virtual ~LightState_2()
+	~LightState_2()
 	{
 		context<Operational>().previous_state_ = LS_2;
 	}
@@ -382,7 +382,7 @@ struct LightState_3 : sc::state<LightState_3, NormalExecution>
 	}
 
 	//Exit
-	virtual ~LightState_3()
+	~LightState_3()
 	{
 		context<Operational>().previous_state_ = LS_3;
 	}
@@ -412,7 +412,7 @@ struct LightState_4 : sc::state<LightState_4, NormalExecution>
 	}
 
 	//Exit
-	virtual ~LightState_4()
+	~LightState_4()
 	{
 		context<Operational>().previous_state_ = LS_4;
 	}
@@ -442,7 +442,7 @@ struct LightState_5 : sc::state<LightState_5, NormalExecution>
 	}
 
 	//Exit
-	virtual ~LightState_5()
+	~LightState_5()
 	{
 		context<Operational>().previous_state_ = LS_5;
 	}
@@ -472,7 +472,7 @@ struct LightState_6 : sc::state<LightState_6, NormalExecution>
 	}
 
 	//Exit
-	virtual ~LightState_6()
+	~LightState_6()
 	{
 		context<Operational>().previous_state_ = LS_6;
 	}
@@ -505,7 +505,7 @@ struct EM_LightState_1 : sc::state<EM_LightState_1, Emergency>
 	}
 
 	//Exit
-	virtual ~EM_LightState_1()
+	~EM_LightState_1()
 	{
 		context<Operational>().previous_state_ = LightStates::LS_1;
 	}
@@ -526,7 +526,7 @@ struct EM_LightState_2 : sc::state<EM_LightState_2, Emergency>
 	}
 
 	//Exit
-	virtual ~EM_LightState_2()
+	~EM_LightState_2()
 	{
 	}
 
@@ -551,7 +551,7 @@ struct EM_LightState_3 : sc::state<EM_LightState_3, Emergency>
 	}
 
 	//Exit
-	virtual ~EM_LightState_3()
+	~EM_LightState_3()
 	{
 	}
 
@@ -579,7 +579,7 @@ struct EM_LightState_4 : sc::state<EM_LightState_4, Emergency>
 	}
 
 	//Exit
-	virtual ~EM_LightState_4()
+	~EM_LightState_4()
 	{
 		context<Operational>().previous_state_ = LightStates::LS_4;
 	}
@@ -600,7 +600,7 @@ struct EM_InitialRR : sc::state<EM_InitialRR, Emergency>
 	}
 
 	//Exit
-	virtual ~EM_InitialRR()
+	~EM_InitialRR()
 	{
 	}
 
@@ -656,7 +656,7 @@ struct EM_Choice : sc::state<EM_Choice, Emergency>
 	}
 
 	//Exit
-	virtual ~EM_Choice()
+	~EM_Choice()
 	{
 
 	}
