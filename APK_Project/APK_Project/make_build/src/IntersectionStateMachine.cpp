@@ -500,7 +500,6 @@ struct EM_LightState_1 : sc::state<EM_LightState_1, Emergency>
 	{
 		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 		LOG_STATE("\n-------\nEmergency LightState 1\nNORTH-SOUTH: Green\nEAST-WEST: Red")
-
 			std::this_thread::sleep_for(EM_TIMER);
 		post_event(EvEVPassed());
 	}
@@ -523,7 +522,7 @@ struct EM_LightState_2 : sc::state<EM_LightState_2, Emergency>
 	{
 		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 		LOG_STATE("\n-------\nEmergency LightState 2\nNORTH-SOUTH: Red\nEAST-WEST: Yellow")
-			TIMER;
+			std::this_thread::sleep_for(TIMER);
 	}
 
 	//Exit
@@ -548,7 +547,7 @@ struct EM_LightState_3 : sc::state<EM_LightState_3, Emergency>
 	{
 		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 		LOG_STATE("\n-------\nEmergency LightState 3\nNORTH-SOUTH: Yellow\nEAST-WEST: Red")
-			TIMER;
+			std::this_thread::sleep_for(TIMER);
 	}
 
 	//Exit
@@ -597,7 +596,7 @@ struct EM_InitialRR : sc::state<EM_InitialRR, Emergency>
 		if (context<Machine>().get_execution_val()) { return; }
 		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
 		LOG_STATE("\n-------\nEmergency InitialRR\nNORTH-SOUTH: Red\nEAST-WEST: Red")
-			TIMER;
+			std::this_thread::sleep_for(TIMER);
 	}
 
 	//Exit
@@ -632,7 +631,7 @@ struct EM_Choice : sc::state<EM_Choice, Emergency>
 		//std::cout << "***" << std::endl << "Emergency Vehicle going: " << context<Machine>().ev_direction_ << std::endl;
 
 		if (context<Machine>().get_error_val()) { post_event(EvError()); return; }
-		TIMER;
+		std::this_thread::sleep_for(TIMER);
 		LightStates current = context<Operational>().previous_state_;
 		Direction current_direction = context<Machine>().get_direction();
 
